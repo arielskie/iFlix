@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iFlix Stream — Live Interactive Platform Simulator & Showcase</title>
+  <meta name="description" content="Explore the interactive live simulator for iFlix Stream: Netflix 1:1 Dark UI, Multi-Profile with Kids PIN, Multi-Server Video Failover, CinePro HLS, and WordPress Admin Studio.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            netflix: {
+              red: '#E50914',
+              redHover: '#b80710',
+              black: '#141414',
+              dark: '#0f0f0f',
+              card: '#181818',
+              border: 'rgba(255,255,255,0.15)',
+              gold: '#ffd700'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --netflix-red: #E50914;
+      --netflix-glow: rgba(229, 9, 20, 0.45);
+    }
+    body {
+      background-color: #141414;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #141414; }
+    ::-webkit-scrollbar-thumb { background: #333333; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #4f4f4f; }
+
+    /* Netflix Glow */
+    .glow-red { box-shadow: 0 0 25px var(--netflix-glow); }
+    .text-netflix { color: var(--netflix-red); }
+    .bg-netflix { background-color: var(--netflix-red); }
+    .border-netflix { border-color: var(--netflix-red); }
+
+    /* Hero Billboard Background Gradient */
+    .billboard-gradient {
+      background: linear-gradient(77deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.85) 100%),
+                  radial-gradient(circle at 80% 20%, rgba(229,9,20,0.2) 0%, transparent 60%);
+    }
+
+    /* Video Player Mockup Aspect Ratio */
+    .player-container {
+      position: relative;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-red-600 selection:text-white">
+
+  <!-- ================= TOP GLOBAL BAR ================= -->
+  <header class="sticky top-0 z-50 bg-[#141414]/95 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3 transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchSimulatorView('player')">
+        <span class="text-2xl sm:text-3xl font-black tracking-tighter text-[#E50914] uppercase drop-shadow">iFLIX</span>
+        <span class="hidden sm:inline-block bg-white/10 text-white/90 text-[10px] font-bold px-2 py-0.5 rounded border border-white/20 uppercase tracking-widest">
+          INTERACTIVE SIMULATOR
+        </span>
+      </div>
+
+      <!-- Mode Switcher -->
+      <div class="flex items-center bg-black/60 p-1 rounded-xl border border-white/10 shadow-inner">
+        <button id="btn-mode-player" onclick="switchSimulatorView('player')" class="flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition bg-[#E50914] text-white shadow-md">
+          <i class="fa-solid fa-play text-[11px]"></i>
+          <span>Streaming Hub & Player</span>
+        </button>
+        <button id="btn-mode-admin" onclick="switchSimulatorView('admin')" class="flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition">
+          <i class="fa-solid fa-sliders text-[11px]"></i>
+          <span>WordPress Admin Studio</span>
+        </button>
+      </div>
+
+      <!-- Action Links -->
+      <div class="flex items-center space-x-3">
+        <a href="docs/README.md" class="hidden md:flex items-center space-x-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/20 transition">
+          <i class="fa-solid fa-book-bookmark text-xs"></i>
+          <span>Documentation</span>
+        </a>
+        <a href="https://github.com/arielskie/iFlix" target="_blank" class="bg-black/60 hover:bg-black text-gray-200 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/20 transition flex items-center gap-1.5">
+          <i class="fa-brands fa-github text-sm"></i>
+          <span>GitHub</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= VIEW 1: FRONTEND STREAMING HUB & PLAYER ================= -->
+  <main id="view-player" class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-6">
+    
+    <!-- Hero Billboard Simulation -->
+    <section class="relative rounded-2xl overflow-hidden billboard-gradient border border-white/10 p-6 sm:p-12 mb-10 shadow-2xl">
+      <div class="max-w-2xl relative z-10">
+        <div class="inline-flex items-center gap-2 bg-[#E50914] text-white text-[11px] font-black px-2.5 py-0.5 rounded tracking-wider uppercase mb-3">
+          #1 IN TRENDING TODAY
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase mb-3 drop-shadow-md">
+          NEAGLEY: DEEP COVER
+        </h1>
+        <div class="flex items-center gap-3 text-xs sm:text-sm text-gray-300 mb-4 font-semibold">
+          <span class="text-green-400 font-bold">98% Match</span>
+          <span>2026</span>
+          <span class="border border-white/40 px-1.5 py-0.2 rounded text-[11px]">18+</span>
+          <span>1 Season</span>
+          <span class="border border-white/40 px-1.5 py-0.2 rounded text-[11px] font-bold">4K ULTRA HD</span>
+        </div>
+        <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3">
+          When a former military police comrade disappears while investigating a rogue private intelligence firm, Neagley goes dark to infiltrate the syndicate before the trail goes cold.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap items-center gap-3">
+          <button onclick="launchInteractivePlayer('Neagley: Deep Cover', 'tv')" class="bg-white hover:bg-gray-200 text-black px-6 py-2.5 rounded-lg font-black text-sm flex items-center gap-2.5 shadow-lg transition active:scale-95">
+            <i class="fa-solid fa-play text-base text-black"></i>
+            <span>Play Now</span>
+          </button>
+          <button onclick="openDetailsModalSim('Neagley: Deep Cover', '2026', '98%', 'Action & Crime', '1 Season')" class="bg-gray-700/80 hover:bg-gray-600 text-white px-5 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 border border-white/20 backdrop-blur-sm transition">
+            <i class="fa-solid fa-circle-info text-base"></i>
+            <span>More Info</span>
+          </button>
+          <button id="hero-btn-add-list" onclick="toggleSimList('hero-btn-add-list')" class="w-10 h-10 rounded-full border border-white/40 hover:border-white bg-black/40 flex items-center justify-center text-white transition" title="Add to My List">
+            <i class="fa-solid fa-plus text-sm"></i>
+          </button>
+          <button id="hero-btn-like" onclick="toggleSimLike('hero-btn-like')" class="w-10 h-10 rounded-full border border-white/40 hover:border-white bg-black/40 flex items-center justify-center text-white transition" title="I Like This">
+            <i class="fa-regular fa-thumbs-up text-sm"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Video Player Sandbox -->
+    <section class="mb-12">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
+            <i class="fa-solid fa-clapperboard text-[#E50914]"></i>
+            <span>Interactive iflixPlayer Sandbox</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-400">Experience resolution tier switching (360p to 4K), subtitles, skip intro, and multi-server failover.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="triggerPaywallDemo()" class="bg-[#E50914]/20 hover:bg-[#E50914]/30 text-[#E50914] border border-[#E50914]/40 text-xs font-bold px-3 py-1.5 rounded-lg transition">
+            <i class="fa-solid fa-lock mr-1"></i> Test Paywall
+          </button>
+          <button onclick="triggerProfilePinDemo()" class="bg-white/10 hover:bg-white/20 text-gray-200 text-xs font-bold px-3 py-1.5 rounded-lg border border-white/20 transition">
+            <i class="fa-solid fa-key mr-1"></i> Kids PIN
+          </button>
+        </div>
+      </div>
+
+      <!-- Player Frame Mockup -->
+      <div class="player-container aspect-video w-full max-w-5xl mx-auto flex flex-col justify-between p-4 sm:p-6" style="background: radial-gradient(circle at center, #1e1e1e 0%, #0a0a0a 100%);">
+        
+        <!-- Player Top Bar -->
+        <div class="flex items-center justify-between text-white z-20">
+          <div class="flex items-center space-x-3">
+            <button class="text-gray-400 hover:text-white transition"><i class="fa-solid fa-arrow-left text-lg"></i></button>
+            <div>
+              <h3 id="player-title" class="text-sm sm:text-base font-bold text-white">Fight Club (1999)</h3>
+              <p id="player-sub" class="text-[11px] text-gray-400">Server 1 (Direct CinePro HLS 1080p Full HD)</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="bg-[#E50914] text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">PRO STREAMS</span>
+          </div>
+        </div>
+
+        <!-- Center Play/Pause & Video Canvas Mockup -->
+        <div class="relative flex-1 flex items-center justify-center cursor-pointer" onclick="togglePlayState()">
+          <div id="player-center-btn" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-black/60 border border-white/30 flex items-center justify-center text-white text-2xl sm:text-3xl hover:scale-110 transition shadow-2xl">
+            <i id="player-play-icon" class="fa-solid fa-play ml-1"></i>
+          </div>
+
+          <!-- Skip Intro Overlay Pill -->
+          <button id="skip-intro-btn" onclick="skipIntroAction(event)" class="absolute bottom-6 right-6 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/40 text-xs font-bold px-4 py-2 rounded-lg transition shadow-xl hidden">
+            <i class="fa-solid fa-forward-step mr-1.5"></i> Skip Intro
+          </button>
+        </div>
+
+        <!-- Bottom Timeline & Controls -->
+        <div class="space-y-2 z-20 bg-gradient-to-t from-black/80 to-transparent pt-4">
+          <!-- Timeline Slider -->
+          <div class="w-full bg-gray-700/60 h-1.5 rounded-full overflow-hidden cursor-pointer" onclick="seekSimTimeline(event)">
+            <div id="player-progress" class="bg-[#E50914] h-full w-[42%] transition-all duration-200"></div>
+          </div>
+
+          <!-- Bottom Button Row -->
+          <div class="flex items-center justify-between text-white text-xs sm:text-sm pt-1">
+            <div class="flex items-center space-x-3 sm:space-x-4">
+              <button onclick="togglePlayState()" class="hover:text-[#E50914] transition"><i id="btn-play-ctrl" class="fa-solid fa-play"></i></button>
+              <button onclick="rewind10()" class="hover:text-gray-300 transition" title="Rewind 10s"><i class="fa-solid fa-rotate-left"></i></button>
+              <button onclick="forward10()" class="hover:text-gray-300 transition" title="Forward 10s"><i class="fa-solid fa-rotate-right"></i></button>
+              <button onclick="toggleMuteState()" class="hover:text-gray-300 transition"><i id="btn-vol-ctrl" class="fa-solid fa-volume-high"></i></button>
+              <span id="player-timestamp" class="text-gray-400 font-mono text-[11px]">42:15 / 2:19:00</span>
+            </div>
+
+            <div class="flex items-center space-x-3 sm:space-x-4">
+              <!-- Server Switcher -->
+              <select id="player-server-select" onchange="changeServerSim(this.value)" class="bg-black/60 text-xs text-gray-200 border border-white/20 rounded px-2 py-1 outline-none">
+                <option value="cinepro">⚡ Server 1 (CinePro HLS Direct)</option>
+                <option value="vidlink">Server 2 (VidLink 1080p)</option>
+                <option value="autoembed">Server 3 (AutoEmbed)</option>
+                <option value="vidsrc">Server 4 (VidSrc CC)</option>
+              </select>
+
+              <!-- Quality Selector -->
+              <select id="player-quality-select" onchange="changeQualitySim(this.value)" class="bg-black/60 text-xs text-gray-200 border border-white/20 rounded px-2 py-1 outline-none">
+                <option value="4k">👑 4K Ultra HD</option>
+                <option value="1080p" selected>1080p Full HD</option>
+                <option value="720p">720p HD</option>
+                <option value="480p">480p SD</option>
+                <option value="360p">360p Data Saver</option>
+              </select>
+
+              <button onclick="toggleSubtitlesSim()" class="hover:text-[#E50914] transition" title="Subtitles (English)"><i class="fa-solid fa-closed-captioning"></i></button>
+              <button onclick="toggleFullscreenMock()" class="hover:text-gray-300 transition" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Curated Netflix Carousels Simulation -->
+    <section class="space-y-8">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-lg sm:text-xl font-black text-white flex items-center gap-2">
+            <span>Trending Movies on iFlix</span>
+            <span class="text-xs text-[#E50914] font-bold cursor-pointer hover:underline">Explore All &rsaquo;</span>
+          </h3>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+          <!-- Card 1 -->
+          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('Fight Club', 'movie')">
+            <img src="https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg" alt="Fight Club" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
+              <span class="text-xs font-bold text-white">Fight Club</span>
+              <span class="text-[10px] text-green-400 font-semibold">★ 8.4 • 1999</span>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('Inception', 'movie')">
+            <img src="https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg" alt="Inception" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
+              <span class="text-xs font-bold text-white">Inception</span>
+              <span class="text-[10px] text-green-400 font-semibold">★ 8.8 • 2010</span>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('Interstellar', 'movie')">
+            <img src="https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg" alt="Interstellar" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
+              <span class="text-xs font-bold text-white">Interstellar</span>
+              <span class="text-[10px] text-green-400 font-semibold">★ 8.6 • 2014</span>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('The Dark Knight', 'movie')">
+            <img src="https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg" alt="The Dark Knight" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
+              <span class="text-xs font-bold text-white">The Dark Knight</span>
+              <span class="text-[10px] text-green-400 font-semibold">★ 9.0 • 2008</span>
+            </div>
+          </div>
+          <!-- Card 5 -->
+          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('Pulp Fiction', 'movie')">
+            <img src="https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg" alt="Pulp Fiction" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
+              <span class="text-xs font-bold text-white">Pulp Fiction</span>
+              <span class="text-[10px] text-green-400 font-semibold">★ 8.9 • 1994</span>
+            </div>
+          </div>
+          <!-- Card 6 -->
+          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('Gladiator', 'movie')">
+            <img src="https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg" alt="Gladiator" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
+              <span class="text-xs font-bold text-white">Gladiator</span>
+              <span class="text-[10px] text-green-400 font-semibold">★ 8.5 • 2000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= VIEW 2: WORDPRESS ADMIN STUDIO SIMULATOR ================= -->
+  <main id="view-admin" class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-6 hidden">
+    
+    <!-- Admin Header -->
+    <div class="bg-gradient-to-r from-[#181818] via-[#222222] to-[#2b1113] p-6 rounded-2xl border border-white/10 shadow-2xl mb-8 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-[#E50914] text-white text-[10px] font-bold px-2 py-0.5 rounded tracking-widest uppercase mb-1.5">
+          WORDPRESS ADMIN SUITE
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
+          <span>iFlix Stream Control Hub</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-gray-400">Manage video sources, test TMDB transients, configure CinePro HLS, and govern paywall monetization.</p>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <button onclick="flushCacheSim()" class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-3.5 py-2 rounded-lg border border-white/20 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-broom text-xs"></i>
+          <span>Flush TMDB Cache</span>
+        </button>
+        <button onclick="seedDefaultsSim()" class="bg-[#E50914] hover:bg-[#b80710] text-white text-xs font-bold px-4 py-2 rounded-lg transition flex items-center gap-1.5 shadow-md">
+          <i class="fa-solid fa-seedling text-xs"></i>
+          <span>Seed Video Sources</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Admin Sub-Navigation Tabs -->
+    <div class="flex items-center border-b border-white/10 mb-6 space-x-2 overflow-x-auto pb-2">
+      <button id="admin-tab-btn-dash" onclick="switchAdminTab('dash')" class="px-4 py-2 text-xs font-bold rounded-t-lg bg-[#E50914] text-white transition">Dashboard & Health</button>
+      <button id="admin-tab-btn-sources" onclick="switchAdminTab('sources')" class="px-4 py-2 text-xs font-bold rounded-t-lg text-gray-400 hover:text-white transition">Video Sources CPT</button>
+      <button id="admin-tab-btn-sections" onclick="switchAdminTab('sections')" class="px-4 py-2 text-xs font-bold rounded-t-lg text-gray-400 hover:text-white transition">Section Builder</button>
+      <button id="admin-tab-btn-tmdb" onclick="switchAdminTab('tmdb')" class="px-4 py-2 text-xs font-bold rounded-t-lg text-gray-400 hover:text-white transition">TMDB API Settings</button>
+      <button id="admin-tab-btn-paywall" onclick="switchAdminTab('paywall')" class="px-4 py-2 text-xs font-bold rounded-t-lg text-gray-400 hover:text-white transition">Subscription & Paywall</button>
+    </div>
+
+    <!-- TAB 1: DASHBOARD & HEALTH -->
+    <div id="admin-tab-dash" class="space-y-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Metric 1 -->
+        <div class="bg-[#181818] p-5 rounded-xl border border-white/10">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">TMDB API Status</span>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xl font-black text-green-400 flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-sm"></i> Connected</span>
+            <span class="text-xs bg-green-500/20 text-green-300 font-mono px-2 py-0.5 rounded">82ms Latency</span>
+          </div>
+        </div>
+        <!-- Metric 2 -->
+        <div class="bg-[#181818] p-5 rounded-xl border border-white/10">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Cached Titles</span>
+          <div class="flex items-center justify-between mt-2">
+            <span id="cache-count" class="text-2xl font-black text-white">418</span>
+            <span class="text-xs bg-blue-500/20 text-blue-300 font-bold px-2 py-0.5 rounded">24h Transients</span>
+          </div>
+        </div>
+        <!-- Metric 3 -->
+        <div class="bg-[#181818] p-5 rounded-xl border border-white/10">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Active Video Sources</span>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-2xl font-black text-white">8 Sources</span>
+            <span class="text-xs bg-purple-500/20 text-purple-300 font-bold px-2 py-0.5 rounded">Multi-Server</span>
+          </div>
+        </div>
+        <!-- Metric 4 -->
+        <div class="bg-[#181818] p-5 rounded-xl border border-white/10">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Direct CinePro HLS</span>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xl font-black text-amber-400 flex items-center gap-1.5"><i class="fa-solid fa-bolt text-sm"></i> Active</span>
+            <span class="text-xs bg-amber-500/20 text-amber-300 font-mono px-2 py-0.5 rounded">4K Ready</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: VIDEO SOURCES CPT -->
+    <div id="admin-tab-sources" class="space-y-4 hidden">
+      <div class="bg-[#181818] rounded-xl border border-white/10 overflow-hidden">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead class="bg-black/60 text-gray-400 uppercase text-[11px] font-bold border-b border-white/10">
+            <tr>
+              <th class="p-3.5">Source Name</th>
+              <th class="p-3.5">Type</th>
+              <th class="p-3.5">TMDB Scope</th>
+              <th class="p-3.5">Configured Servers</th>
+              <th class="p-3.5 text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/10">
+            <tr>
+              <td class="p-3.5 font-bold text-white">Global Movie Default Servers</td>
+              <td class="p-3.5"><span class="bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded text-xs font-bold">Movie</span></td>
+              <td class="p-3.5 text-gray-300">Global Default (All Titles)</td>
+              <td class="p-3.5 text-xs text-gray-400">VidLink HD, AutoEmbed, VidSrc CC, MultiEmbed</td>
+              <td class="p-3.5 text-center"><span class="bg-green-500/20 text-green-400 px-2.5 py-1 rounded-full text-xs font-bold">ACTIVE</span></td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-bold text-white">Global TV Series Default Servers</td>
+              <td class="p-3.5"><span class="bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded text-xs font-bold">TV</span></td>
+              <td class="p-3.5 text-gray-300">Global Default (All Episodes)</td>
+              <td class="p-3.5 text-xs text-gray-400">VidLink TV, AutoEmbed TV, 2Embed</td>
+              <td class="p-3.5 text-center"><span class="bg-green-500/20 text-green-400 px-2.5 py-1 rounded-full text-xs font-bold">ACTIVE</span></td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-bold text-white">Fight Club (Dedicated 4K CDN)</td>
+              <td class="p-3.5"><span class="bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded text-xs font-bold">Movie</span></td>
+              <td class="p-3.5 text-amber-400 font-bold">TMDB #550</td>
+              <td class="p-3.5 text-xs text-gray-400">Cloudflare R2 Direct HLS Master</td>
+              <td class="p-3.5 text-center"><span class="bg-green-500/20 text-green-400 px-2.5 py-1 rounded-full text-xs font-bold">ACTIVE</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: SECTION BUILDER -->
+    <div id="admin-tab-sections" class="space-y-4 hidden">
+      <div class="bg-[#181818] p-6 rounded-xl border border-white/10 space-y-4">
+        <h3 class="text-base font-bold text-white">Homepage Row Ordering (Drag & Drop)</h3>
+        <div class="space-y-2">
+          <div class="bg-black/40 p-3.5 rounded-lg border border-white/10 flex items-center justify-between">
+            <span class="font-bold text-sm flex items-center gap-3"><i class="fa-solid fa-grip-vertical text-gray-500"></i> 1. Billboard Slider (Featured Trending Releases)</span>
+            <span class="text-xs bg-red-500/20 text-red-300 font-bold px-2 py-0.5 rounded">Dynamic Hero</span>
+          </div>
+          <div class="bg-black/40 p-3.5 rounded-lg border border-white/10 flex items-center justify-between">
+            <span class="font-bold text-sm flex items-center gap-3"><i class="fa-solid fa-grip-vertical text-gray-500"></i> 2. Top 10 Ranked Movies in the United States</span>
+            <span class="text-xs bg-blue-500/20 text-blue-300 font-bold px-2 py-0.5 rounded">Ranked Numbers (#1 - #10)</span>
+          </div>
+          <div class="bg-black/40 p-3.5 rounded-lg border border-white/10 flex items-center justify-between">
+            <span class="font-bold text-sm flex items-center gap-3"><i class="fa-solid fa-grip-vertical text-gray-500"></i> 3. Popular on iFlix (TMDB Discover)</span>
+            <span class="text-xs bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded">Landscape 16:9</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: TMDB SETTINGS -->
+    <div id="admin-tab-tmdb" class="space-y-4 hidden">
+      <div class="bg-[#181818] p-6 rounded-xl border border-white/10 max-w-2xl space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-400 mb-1">TMDB API Key (v3 auth)</label>
+          <input type="text" value="4f8b2c1e9a0d3f7e6b5a4c3d2e1f0a9b" class="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white font-mono" readonly>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-400 mb-1">Default Language</label>
+            <input type="text" value="en-US" class="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white" readonly>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-400 mb-1">Cache Lifetime (Hours)</label>
+            <input type="text" value="24" class="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white" readonly>
+          </div>
+        </div>
+        <button class="bg-green-600 text-white font-bold text-xs px-4 py-2 rounded-lg"><i class="fa-solid fa-check mr-1.5"></i> Validated Connection</button>
+      </div>
+    </div>
+
+    <!-- TAB 5: SUBSCRIPTION & PAYWALL -->
+    <div id="admin-tab-paywall" class="space-y-4 hidden">
+      <div class="bg-[#181818] p-6 rounded-xl border border-white/10 max-w-3xl space-y-6">
+        <div class="flex items-center justify-between pb-4 border-b border-white/10">
+          <div>
+            <h4 class="font-bold text-white text-base">Enable Platform Paywall</h4>
+            <p class="text-xs text-gray-400">Requires viewers to hold an active subscription tier to stream video content.</p>
+          </div>
+          <span class="bg-[#E50914] text-white font-bold text-xs px-3 py-1 rounded-full">ACTIVE</span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-black/40 p-4 rounded-xl border border-white/10 text-center">
+            <span class="text-xs font-bold text-gray-400 uppercase">Basic Plan</span>
+            <div class="text-2xl font-black text-white mt-1">$9.99/mo</div>
+            <span class="text-[11px] text-gray-400 block mt-1">Max 720p HD • 2 Profiles</span>
+          </div>
+          <div class="bg-black/40 p-4 rounded-xl border border-white/10 text-center">
+            <span class="text-xs font-bold text-gray-400 uppercase">Standard Plan</span>
+            <div class="text-2xl font-black text-white mt-1">$15.49/mo</div>
+            <span class="text-[11px] text-gray-400 block mt-1">Max 1080p FHD • 3 Profiles</span>
+          </div>
+          <div class="bg-black/40 p-4 rounded-xl border border-[#E50914] text-center bg-red-950/20">
+            <span class="text-xs font-bold text-red-400 uppercase">Premium 4K</span>
+            <div class="text-2xl font-black text-white mt-1">$19.99/mo</div>
+            <span class="text-[11px] text-gray-300 block mt-1">Max 4K HDR • 6 Profiles</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= MODALS & POPUPS ================= -->
+  
+  <!-- Modal 1: Details Modal -->
+  <div id="modal-details" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-[#181818] border border-white/20 rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl space-y-4">
+      <button onclick="closeDetailsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
+      <span class="text-[#E50914] text-xs font-bold uppercase tracking-widest">iFLIX PREVIEW</span>
+      <h3 id="modal-d-title" class="text-2xl font-black text-white">Title</h3>
+      <div id="modal-d-meta" class="flex items-center gap-3 text-xs text-gray-300 font-bold"></div>
+      <p id="modal-d-desc" class="text-sm text-gray-300 leading-relaxed">
+        Experience seamless streaming with zero buffering, multi-audio selection, and 4K Ultra HD playback on iFlix Stream.
+      </p>
+      <div class="pt-4 flex gap-3">
+        <button onclick="launchInteractivePlayer('Title', 'movie'); closeDetailsModal();" class="bg-[#E50914] hover:bg-[#b80710] text-white font-bold text-sm px-6 py-2.5 rounded-lg flex items-center gap-2">
+          <i class="fa-solid fa-play"></i> Watch Now
+        </button>
+        <button onclick="closeDetailsModal()" class="bg-white/10 hover:bg-white/20 text-white font-bold text-sm px-4 py-2.5 rounded-lg">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Paywall Subscription Prompt Modal -->
+  <div id="modal-paywall" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-[#181818] border border-white/20 rounded-2xl max-w-md w-full p-6 sm:p-8 text-center relative shadow-2xl space-y-4">
+      <button onclick="closePaywallModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
+      <div class="w-14 h-14 rounded-full bg-red-500/20 border border-red-500 text-red-500 flex items-center justify-center text-2xl mx-auto mb-2">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <h3 class="text-xl font-black text-white">Subscription Required</h3>
+      <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+        A streaming subscription is required to unlock unlimited streaming in 4K Ultra HD and save titles to your personal My List.
+      </p>
+      <div class="pt-2 space-y-2">
+        <button onclick="alert('Demo: Redirecting to plan selection!'); closePaywallModal();" class="w-full bg-[#E50914] hover:bg-[#b80710] text-white font-black text-sm py-3 rounded-lg shadow-lg">
+          View Plans & Pricing
+        </button>
+        <button onclick="closePaywallModal()" class="w-full bg-transparent hover:bg-white/10 text-gray-400 text-xs py-2 rounded-lg">
+          Maybe Later
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Parental PIN Verification Modal -->
+  <div id="modal-pin" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-[#181818] border border-white/20 rounded-2xl max-w-sm w-full p-6 text-center relative shadow-2xl space-y-4">
+      <button onclick="closePinModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
+      <div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500 text-amber-500 flex items-center justify-center text-xl mx-auto">
+        <i class="fa-solid fa-key"></i>
+      </div>
+      <h3 class="text-lg font-black text-white">Parental PIN Lock</h3>
+      <p class="text-xs text-gray-300">Enter your 4-digit PIN to switch back to adult profiles.</p>
+      <div class="flex justify-center gap-2 py-2">
+        <input type="password" maxlength="1" class="w-10 h-12 bg-black/60 border border-white/20 text-center text-xl font-mono text-white rounded-lg outline-none focus:border-[#E50914]" value="1">
+        <input type="password" maxlength="1" class="w-10 h-12 bg-black/60 border border-white/20 text-center text-xl font-mono text-white rounded-lg outline-none focus:border-[#E50914]" value="2">
+        <input type="password" maxlength="1" class="w-10 h-12 bg-black/60 border border-white/20 text-center text-xl font-mono text-white rounded-lg outline-none focus:border-[#E50914]" value="3">
+        <input type="password" maxlength="1" class="w-10 h-12 bg-black/60 border border-white/20 text-center text-xl font-mono text-white rounded-lg outline-none focus:border-[#E50914]" value="4">
+      </div>
+      <button onclick="alert('PIN Verified! Switched to Primary Adult Profile.'); closePinModal();" class="w-full bg-[#E50914] hover:bg-[#b80710] text-white font-bold text-xs py-2.5 rounded-lg">
+        Unlock Profile
+      </button>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="sim-toast" class="fixed bottom-6 right-6 z-50 bg-[#181818] text-white border border-white/20 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300">
+    <i id="sim-toast-icon" class="fa-solid fa-circle-check text-green-400"></i>
+    <span id="sim-toast-msg" class="text-xs font-bold">Action executed</span>
+  </div>
+
+  <!-- Interactive JavaScript Engine -->
+  <script>
+    let isPlaying = false;
+    let isMuted = false;
+    let progressPercent = 42;
+
+    function switchSimulatorView(mode) {
+      const viewPlayer = document.getElementById('view-player');
+      const viewAdmin = document.getElementById('view-admin');
+      const btnPlayer = document.getElementById('btn-mode-player');
+      const btnAdmin = document.getElementById('btn-mode-admin');
+
+      if (mode === 'player') {
+        viewPlayer.classList.remove('hidden');
+        viewAdmin.classList.add('hidden');
+        btnPlayer.classList.add('bg-[#E50914]', 'text-white');
+        btnPlayer.classList.remove('text-gray-300');
+        btnAdmin.classList.remove('bg-[#E50914]', 'text-white');
+        btnAdmin.classList.add('text-gray-300');
+      } else {
+        viewPlayer.classList.add('hidden');
+        viewAdmin.classList.remove('hidden');
+        btnAdmin.classList.add('bg-[#E50914]', 'text-white');
+        btnAdmin.classList.remove('text-gray-300');
+        btnPlayer.classList.remove('bg-[#E50914]', 'text-white');
+        btnPlayer.classList.add('text-gray-300');
+      }
+    }
+
+    function switchAdminTab(tab) {
+      const tabs = ['dash', 'sources', 'sections', 'tmdb', 'paywall'];
+      tabs.forEach(t => {
+        const pane = document.getElementById('admin-tab-' + t);
+        const btn = document.getElementById('admin-tab-btn-' + t);
+        if (t === tab) {
+          pane.classList.remove('hidden');
+          btn.classList.add('bg-[#E50914]', 'text-white');
+          btn.classList.remove('text-gray-400');
+        } else {
+          pane.classList.add('hidden');
+          btn.classList.remove('bg-[#E50914]', 'text-white');
+          btn.classList.add('text-gray-400');
+        }
+      });
+    }
+
+    function togglePlayState() {
+      isPlaying = !isPlaying;
+      const playIcon = document.getElementById('player-play-icon');
+      const ctrlIcon = document.getElementById('btn-play-ctrl');
+      const skipBtn = document.getElementById('skip-intro-btn');
+
+      if (isPlaying) {
+        playIcon.className = 'fa-solid fa-pause';
+        ctrlIcon.className = 'fa-solid fa-pause';
+        showToast('Playback Started (HLS 1080p)', 'play');
+        skipBtn.classList.remove('hidden');
+      } else {
+        playIcon.className = 'fa-solid fa-play ml-1';
+        ctrlIcon.className = 'fa-solid fa-play';
+        showToast('Playback Paused', 'pause');
+      }
+    }
+
+    function toggleMuteState() {
+      isMuted = !isMuted;
+      const volIcon = document.getElementById('btn-vol-ctrl');
+      volIcon.className = isMuted ? 'fa-solid fa-volume-xmark text-red-500' : 'fa-solid fa-volume-high';
+      showToast(isMuted ? 'Audio Muted' : 'Audio Unmuted', isMuted ? 'volume-xmark' : 'volume-high');
+    }
+
+    function seekSimTimeline(e) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      progressPercent = Math.max(0, Math.min(100, Math.round((x / rect.width) * 100)));
+      document.getElementById('player-progress').style.width = progressPercent + '%';
+      showToast('Seeked to ' + progressPercent + '%', 'forward');
+    }
+
+    function rewind10() {
+      progressPercent = Math.max(0, progressPercent - 5);
+      document.getElementById('player-progress').style.width = progressPercent + '%';
+      showToast('Rewound -10s', 'rotate-left');
+    }
+
+    function forward10() {
+      progressPercent = Math.min(100, progressPercent + 5);
+      document.getElementById('player-progress').style.width = progressPercent + '%';
+      showToast('Advanced +10s', 'rotate-right');
+    }
+
+    function skipIntroAction(e) {
+      e.stopPropagation();
+      document.getElementById('skip-intro-btn').classList.add('hidden');
+      progressPercent = 55;
+      document.getElementById('player-progress').style.width = progressPercent + '%';
+      showToast('Intro Skipped (Advanced to 01:25)', 'forward-step');
+    }
+
+    function changeServerSim(server) {
+      showToast('Switched to: ' + server.toUpperCase() + ' Mirror', 'server');
+    }
+
+    function changeQualitySim(quality) {
+      showToast('Resolution Stream set to ' + quality.toUpperCase(), 'sliders');
+    }
+
+    function toggleSubtitlesSim() {
+      showToast('Subtitles: English [CC] Active', 'closed-captioning');
+    }
+
+    function toggleFullscreenMock() {
+      showToast('Toggled Fullscreen Mode', 'expand');
+    }
+
+    function launchInteractivePlayer(title, type) {
+      document.getElementById('player-title').textContent = title;
+      document.getElementById('player-sub').textContent = 'Server 1 (Direct CinePro HLS 1080p ' + (type === 'tv' ? 'Episode 1' : 'Feature Film') + ')';
+      isPlaying = false;
+      togglePlayState();
+      window.scrollTo({ top: 380, behavior: 'smooth' });
+    }
+
+    function toggleSimList(btnId) {
+      const btn = document.getElementById(btnId);
+      const isAdded = btn.classList.contains('bg-white');
+      if (isAdded) {
+        btn.classList.remove('bg-white', 'text-black');
+        btn.classList.add('bg-black/40', 'text-white');
+        btn.innerHTML = '<i class="fa-solid fa-plus text-sm"></i>';
+        showToast('Removed from My List', 'trash');
+      } else {
+        btn.classList.add('bg-white', 'text-black');
+        btn.classList.remove('bg-black/40', 'text-white');
+        btn.innerHTML = '<i class="fa-solid fa-check text-sm text-green-600"></i>';
+        showToast('Saved to My List (Synced to Firestore)', 'check');
+      }
+    }
+
+    function toggleSimLike(btnId) {
+      const btn = document.getElementById(btnId);
+      const isLiked = btn.classList.contains('text-green-400');
+      if (isLiked) {
+        btn.classList.remove('text-green-400', 'border-green-400');
+        showToast('Rating Removed', 'thumbs-down');
+      } else {
+        btn.classList.add('text-green-400', 'border-green-400');
+        showToast('Rated: I Like This!', 'thumbs-up');
+      }
+    }
+
+    function triggerPaywallDemo() {
+      document.getElementById('modal-paywall').classList.remove('hidden');
+    }
+    function closePaywallModal() {
+      document.getElementById('modal-paywall').classList.add('hidden');
+    }
+
+    function triggerProfilePinDemo() {
+      document.getElementById('modal-pin').classList.remove('hidden');
+    }
+    function closePinModal() {
+      document.getElementById('modal-pin').classList.add('hidden');
+    }
+
+    function openDetailsModalSim(title, year, match, genre, dur) {
+      document.getElementById('modal-d-title').textContent = title;
+      document.getElementById('modal-d-meta').innerHTML = `
+        <span class="text-green-400 font-bold">${match} Match</span>
+        <span>${year}</span>
+        <span class="border border-white/40 px-1 py-0.2 rounded text-[10px]">18+</span>
+        <span>${dur}</span>
+        <span>${genre}</span>
+      `;
+      document.getElementById('modal-details').classList.remove('hidden');
+    }
+    function closeDetailsModal() {
+      document.getElementById('modal-details').classList.add('hidden');
+    }
+
+    function flushCacheSim() {
+      const countEl = document.getElementById('cache-count');
+      countEl.textContent = '0';
+      showToast('Purged 418 TMDB Transients (Cache Cleared)', 'broom');
+      setTimeout(() => { countEl.textContent = '418'; }, 3000);
+    }
+
+    function seedDefaultsSim() {
+      showToast('Restored Default Video Source Mirrors', 'seedling');
+    }
+
+    function showToast(msg, icon) {
+      const toast = document.getElementById('sim-toast');
+      const toastMsg = document.getElementById('sim-toast-msg');
+      const toastIcon = document.getElementById('sim-toast-icon');
+
+      toastMsg.textContent = msg;
+      toastIcon.className = 'fa-solid fa-' + (icon || 'circle-check') + ' text-[#E50914]';
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2400);
+    }
+  </script>
+</body>
+</html>
