@@ -232,7 +232,7 @@
       </h1>
 
       <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
-        Experience the Netflix 1:1 Dark UI, multi-server HLS failover, CinePro streaming engine, VIP Pass coin paywalls, and adaptive 4K/1080p playback.
+        Experience the Netflix 1:1 Dark UI, 100% TMDB automated catalog, multi-server video failover, Firebase cross-device watch history, and native Netflix-style subscription plans.
       </p>
 
       <!-- Action Buttons Row -->
@@ -345,85 +345,85 @@
       </div>
 
 
-      <!-- RIGHT COLUMN: 3 Feature Cards (Matching User Reference Image 2) -->
+      <!-- RIGHT COLUMN: 3 Feature Cards (Real iFlix Architecture) -->
       <div class="lg:col-span-7 space-y-5">
         
-        <!-- CARD 1: Zero-Egress Multi-CDN Storage -->
+        <!-- CARD 1: 100% TMDB Automated Catalog & Smart Caching -->
         <div class="bg-surface-850 border border-white/10 rounded-2xl p-5 sm:p-6 shadow-xl relative overflow-hidden group hover:border-white/20 transition">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center space-x-2.5">
-              <div class="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-                <i class="fa-solid fa-cloud text-base"></i>
+              <div class="w-9 h-9 rounded-xl bg-accent-light border border-accent-subtle flex items-center justify-center text-accent">
+                <i class="fa-solid fa-film text-base"></i>
               </div>
-              <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">Zero-Egress Multi-CDN Storage</h3>
+              <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">100% TMDB Automated Catalog & Smart Cache</h3>
             </div>
-            <span class="bg-blue-500/15 text-blue-400 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-blue-500/30 uppercase tracking-wider">
-              COST SAVING
+            <span class="bg-emerald-500/15 text-emerald-400 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-emerald-500/30 uppercase tracking-wider">
+              ZERO STORAGE NEEDED
             </span>
           </div>
 
           <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-4">
-            Eliminate massive streaming bandwidth bills. iFlix natively supports <span class="text-white font-semibold">Cloudflare R2</span> with zero egress fees, <span class="text-white font-semibold">CinePro HLS</span> with hardware encryption, and <span class="text-white font-semibold">Cloudinary / Akamai</span> with automated 1080p/4K multi-bitrate transcoding and smart folder routing (<code class="text-accent text-xs font-mono">stream / Movie Title</code>).
+            Eliminate manual post creation and video hosting costs. iFlix automatically queries <span class="text-white font-semibold">The Movie Database (TMDB v3/v4 API)</span> to dynamically deliver over 850,000+ Movies, TV series, 4K backdrops, high-res posters, official trailers, and IMDb ratings on-the-fly, accelerated by built-in <span class="text-white font-semibold">WordPress Transient Caching</span> for instant page loads.
           </p>
 
           <!-- 3 Integration Cards Sub-Grid -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 text-center hover:border-accent-subtle transition cursor-pointer" onclick="showCdnDetails('r2')">
-              <i class="fa-solid fa-cloud text-orange-400 text-lg mb-1.5"></i>
-              <div class="text-xs font-bold text-white">Cloudflare R2</div>
-              <div class="text-[10px] text-gray-400 mt-0.5">$0 Bandwidth Egress</div>
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 text-center hover:border-accent-subtle transition cursor-pointer" onclick="showTmdbDetails('api')">
+              <i class="fa-solid fa-cloud-arrow-down text-accent text-lg mb-1.5"></i>
+              <div class="text-xs font-bold text-white">TMDB API v3/v4</div>
+              <div class="text-[10px] text-gray-400 mt-0.5">850K+ Dynamic Titles</div>
             </div>
 
-            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 text-center hover:border-accent-subtle transition cursor-pointer" onclick="showCdnDetails('cinepro')">
-              <i class="fa-solid fa-shield-halved text-rose-400 text-lg mb-1.5"></i>
-              <div class="text-xs font-bold text-white">CinePro HLS</div>
-              <div class="text-[10px] text-gray-400 mt-0.5">Hardware Encrypted</div>
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 text-center hover:border-accent-subtle transition cursor-pointer" onclick="showTmdbDetails('cache')">
+              <i class="fa-solid fa-bolt text-amber-400 text-lg mb-1.5"></i>
+              <div class="text-xs font-bold text-white">Transient Caching</div>
+              <div class="text-[10px] text-gray-400 mt-0.5">0.05s Load Latency</div>
             </div>
 
-            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 text-center hover:border-accent-subtle transition cursor-pointer" onclick="showCdnDetails('cloudinary')">
-              <i class="fa-solid fa-bolt text-sky-400 text-lg mb-1.5"></i>
-              <div class="text-xs font-bold text-white">Cloudinary / Akamai</div>
-              <div class="text-[10px] text-gray-400 mt-0.5">Adaptive Transcoding</div>
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 text-center hover:border-accent-subtle transition cursor-pointer" onclick="showTmdbDetails('metadata')">
+              <i class="fa-solid fa-images text-sky-400 text-lg mb-1.5"></i>
+              <div class="text-xs font-bold text-white">4K Media & Cast</div>
+              <div class="text-[10px] text-gray-400 mt-0.5">Posters, Trailers, Cast</div>
             </div>
           </div>
         </div>
 
 
-        <!-- CARD 2: Double-Engine Monetization -->
+        <!-- CARD 2: Multi-Server Video Failover & Dynamic Section Builder -->
         <div class="bg-surface-850 border border-white/10 rounded-2xl p-5 sm:p-6 shadow-xl relative overflow-hidden group hover:border-white/20 transition">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center space-x-2.5">
-              <div class="w-9 h-9 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400">
-                <i class="fa-solid fa-crown text-base"></i>
+              <div class="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                <i class="fa-solid fa-server text-base"></i>
               </div>
-              <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">Double-Engine Monetization</h3>
+              <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">Multi-Server Failover & Section Builder</h3>
             </div>
-            <span class="bg-pink-500/15 text-pink-400 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-pink-500/30 uppercase tracking-wider">
-              RECURRING REVENUE
+            <span class="bg-purple-500/15 text-purple-400 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-purple-500/30 uppercase tracking-wider">
+              HIGH AVAILABILITY
             </span>
           </div>
 
-          <!-- 2 Columns Inside Monetization Card -->
+          <!-- 2 Columns Inside Card -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-            <!-- Left Engine: VIP Pass -->
+            <!-- Left: Video Sources CPT -->
             <div class="bg-surface-800/80 border border-white/10 rounded-xl p-3.5 space-y-1.5">
-              <div class="flex items-center space-x-2 text-xs font-bold text-pink-300">
-                <i class="fa-solid fa-gem text-pink-400"></i>
-                <span>VIP Pass Subscriptions</span>
+              <div class="flex items-center space-x-2 text-xs font-bold text-purple-300">
+                <i class="fa-solid fa-play text-accent"></i>
+                <span>Multi-Server Video Sources (CPT)</span>
               </div>
               <p class="text-[11px] sm:text-xs text-gray-300 leading-normal">
-                Unlimited 1080p/4K full-catalog streaming, zero advertisements, and exclusive early access to newly dropped episodes and blockbuster premieres.
+                Manage multiple video sources (CinePro HLS, Direct Embeds, VidSrc, or MP4) with auto-failover order (Server 1 ➔ Server 2 ➔ Server 3 ➔ Backup) to ensure zero broken streams.
               </p>
             </div>
 
-            <!-- Right Engine: Virtual Coin Economy -->
+            <!-- Right: Section Builder & Presets -->
             <div class="bg-surface-800/80 border border-white/10 rounded-xl p-3.5 space-y-1.5">
-              <div class="flex items-center space-x-2 text-xs font-bold text-amber-300">
-                <i class="fa-solid fa-coins text-amber-400"></i>
-                <span>Virtual Coin Economy</span>
+              <div class="flex items-center space-x-2 text-xs font-bold text-emerald-300">
+                <i class="fa-solid fa-cubes text-emerald-400"></i>
+                <span>Homepage & Kids Section Builder</span>
               </div>
               <p class="text-[11px] sm:text-xs text-gray-300 leading-normal">
-                Pay-per-episode unlocking (e.g. 10 coins/ep), daily streak check-in rewards, and instant coin bundle checkouts via Stripe & PayPal.
+                Drag & drop live homepage rows, customize TMDB endpoint presets (/trending, /top_rated, /discover), and manage both Main Streaming and Kids PIN-protected Hubs.
               </p>
             </div>
           </div>
@@ -438,7 +438,7 @@
               <span>Want to test the WordPress Admin Panel?</span>
             </div>
             <p class="text-xs text-gray-300 max-w-md">
-              Explore all 8 admin settings tabs, live section builder, TMDB 1-click catalog importer, and server failover routing.
+              Explore the iFlix Stream Admin Studio: TMDB API Config, Video Sources CPT, Section Builder, Endpoint Presets, Notifications, and Health.
             </p>
           </div>
 
@@ -521,14 +521,14 @@
 
         <div class="px-3 pt-3 pb-1 text-[10px] font-black uppercase tracking-wider text-gray-400">ENGINE & REVENUE</div>
 
-        <button onclick="switchAdminTab('cinepro')" id="tab-btn-cinepro" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition">
-          <i class="fa-solid fa-bolt text-sm w-4"></i>
-          <span>CinePro & Cloudflare R2</span>
+        <button onclick="switchAdminTab('presets')" id="tab-btn-presets" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition">
+          <i class="fa-solid fa-list-check text-sm w-4"></i>
+          <span>Endpoint Presets</span>
         </button>
 
         <button onclick="switchAdminTab('paywall')" id="tab-btn-paywall" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition">
           <i class="fa-solid fa-crown text-sm w-4"></i>
-          <span>Subscriptions & Coins</span>
+          <span>Netflix Subscription Plans</span>
         </button>
 
         <button onclick="switchAdminTab('notifications')" id="tab-btn-notifications" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition">
@@ -560,7 +560,7 @@
           <!-- KPI Metric Cards -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div class="bg-surface-800 border border-white/10 rounded-xl p-4">
-              <div class="text-[11px] text-gray-400 font-medium">Active VIP Subscribers</div>
+              <div class="text-[11px] text-gray-400 font-medium">Active Subscribers</div>
               <div class="text-xl sm:text-2xl font-black text-white mt-1">14,290</div>
               <div class="text-[10px] text-emerald-400 font-semibold mt-1 flex items-center">
                 <i class="fa-solid fa-arrow-trend-up mr-1"></i> +18.4% this month
@@ -568,21 +568,21 @@
             </div>
 
             <div class="bg-surface-800 border border-white/10 rounded-xl p-4">
-              <div class="text-[11px] text-gray-400 font-medium">CDN Bandwidth Saved</div>
-              <div class="text-xl sm:text-2xl font-black text-emerald-400 mt-1">$4,820</div>
-              <div class="text-[10px] text-gray-400 font-semibold mt-1">via Cloudflare R2</div>
+              <div class="text-[11px] text-gray-400 font-medium">TMDB Cache Hit Rate</div>
+              <div class="text-xl sm:text-2xl font-black text-emerald-400 mt-1">99.4%</div>
+              <div class="text-[10px] text-gray-400 font-semibold mt-1">0.05s Load Latency</div>
             </div>
 
             <div class="bg-surface-800 border border-white/10 rounded-xl p-4">
               <div class="text-[11px] text-gray-400 font-medium">Stream Uptime</div>
               <div class="text-xl sm:text-2xl font-black text-white mt-1">99.98%</div>
-              <div class="text-[10px] text-emerald-400 font-semibold mt-1">4 Active Failover Nodes</div>
+              <div class="text-[10px] text-emerald-400 font-semibold mt-1">Multi-Server Failover</div>
             </div>
 
             <div class="bg-surface-800 border border-white/10 rounded-xl p-4">
-              <div class="text-[11px] text-gray-400 font-medium">Total Titles Indexed</div>
-              <div class="text-xl sm:text-2xl font-black text-accent mt-1">8,450</div>
-              <div class="text-[10px] text-gray-400 font-semibold mt-1">Auto-synced TMDB</div>
+              <div class="text-[11px] text-gray-400 font-medium">Dynamic TMDB Titles</div>
+              <div class="text-xl sm:text-2xl font-black text-accent mt-1">850K+</div>
+              <div class="text-[10px] text-gray-400 font-semibold mt-1">Zero Local Storage</div>
             </div>
           </div>
 
@@ -594,7 +594,7 @@
                 <div class="flex items-center space-x-2">
                   <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
                   <span class="font-bold text-white">Server 1 (CinePro HLS Direct)</span>
-                  <span class="text-[10px] text-gray-400">sgp-node.cinepro.io</span>
+                  <span class="text-[10px] text-gray-400">Primary Node</span>
                 </div>
                 <div class="flex items-center space-x-3 text-[11px]">
                   <span class="text-gray-400">Latency: <strong class="text-emerald-400">18ms</strong></span>
@@ -605,11 +605,11 @@
               <div class="flex items-center justify-between text-xs bg-surface-750 px-3 py-2 rounded-lg border border-white/5">
                 <div class="flex items-center space-x-2">
                   <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  <span class="font-bold text-white">Server 2 (Cloudflare R2 Bucket)</span>
-                  <span class="text-[10px] text-gray-400">r2.cdn.iflix.io</span>
+                  <span class="font-bold text-white">Server 2 (VidSrc Pro Embed)</span>
+                  <span class="text-[10px] text-gray-400">Backup Node A</span>
                 </div>
                 <div class="flex items-center space-x-3 text-[11px]">
-                  <span class="text-gray-400">Latency: <strong class="text-emerald-400">24ms</strong></span>
+                  <span class="text-gray-400">Latency: <strong class="text-emerald-400">22ms</strong></span>
                   <span class="text-emerald-400 font-bold bg-emerald-500/15 px-2 py-0.5 rounded">Operational</span>
                 </div>
               </div>
@@ -617,11 +617,11 @@
               <div class="flex items-center justify-between text-xs bg-surface-750 px-3 py-2 rounded-lg border border-white/5">
                 <div class="flex items-center space-x-2">
                   <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  <span class="font-bold text-white">Server 3 (Akamai Global Edge)</span>
-                  <span class="text-[10px] text-gray-400">akamai-hls.iflix.io</span>
+                  <span class="font-bold text-white">Server 3 (Direct MP4 / HLS Stream)</span>
+                  <span class="text-[10px] text-gray-400">Backup Node B</span>
                 </div>
                 <div class="flex items-center space-x-3 text-[11px]">
-                  <span class="text-gray-400">Latency: <strong class="text-emerald-400">32ms</strong></span>
+                  <span class="text-gray-400">Latency: <strong class="text-emerald-400">28ms</strong></span>
                   <span class="text-emerald-400 font-bold bg-emerald-500/15 px-2 py-0.5 rounded">Operational</span>
                 </div>
               </div>
@@ -648,13 +648,13 @@
               <div class="flex items-center space-x-3">
                 <span class="w-6 h-6 rounded bg-accent text-white text-xs font-black flex items-center justify-center">1</span>
                 <div>
-                  <div class="text-xs font-bold text-white">CinePro HLS Direct (Primary)</div>
+                  <div class="text-xs font-bold text-white">CinePro HLS Direct (Primary Server)</div>
                   <div class="text-[10px] text-gray-400 font-mono">https://stream.cinepro.io/live/hls/master.m3u8</div>
                 </div>
               </div>
               <div class="flex items-center space-x-3">
                 <span class="text-[10px] bg-emerald-500/15 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-500/30">Auto Failover #1</span>
-                <span class="text-[10px] bg-surface-700 text-gray-300 px-2 py-0.5 rounded">All Tiers (Free/VIP)</span>
+                <span class="text-[10px] bg-surface-700 text-gray-300 px-2 py-0.5 rounded">Global Default (All Titles)</span>
               </div>
             </div>
 
@@ -663,13 +663,13 @@
               <div class="flex items-center space-x-3">
                 <span class="w-6 h-6 rounded bg-surface-700 text-gray-300 text-xs font-black flex items-center justify-center">2</span>
                 <div>
-                  <div class="text-xs font-bold text-white">Cloudflare R2 Encrypted Bucket (Backup A)</div>
-                  <div class="text-[10px] text-gray-400 font-mono">https://r2-vod.stream.net/dramas/ep01-enc.mp4</div>
+                  <div class="text-xs font-bold text-white">VidSrc Pro Embed (Backup Node A)</div>
+                  <div class="text-[10px] text-gray-400 font-mono">https://vidsrc.xyz/embed/movie/{tmdb_id}</div>
                 </div>
               </div>
               <div class="flex items-center space-x-3">
-                <span class="text-[10px] bg-blue-500/15 text-blue-400 font-bold px-2 py-0.5 rounded border border-blue-500/30">Zero Egress</span>
-                <span class="text-[10px] bg-amber-500/15 text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-500/30"><i class="fa-solid fa-crown mr-1"></i>VIP 4K Only</span>
+                <span class="text-[10px] bg-blue-500/15 text-blue-400 font-bold px-2 py-0.5 rounded border border-blue-500/30">Embed Player</span>
+                <span class="text-[10px] bg-surface-700 text-gray-300 px-2 py-0.5 rounded">Auto Failover #2</span>
               </div>
             </div>
 
@@ -678,13 +678,13 @@
               <div class="flex items-center space-x-3">
                 <span class="w-6 h-6 rounded bg-surface-700 text-gray-300 text-xs font-black flex items-center justify-center">3</span>
                 <div>
-                  <div class="text-xs font-bold text-white">Akamai / BunnyCDN Global Edge (Backup B)</div>
-                  <div class="text-[10px] text-gray-400 font-mono">https://edge.akamai.cdn/master.mpd</div>
+                  <div class="text-xs font-bold text-white">Direct MP4 / HLS Stream (Backup Node B)</div>
+                  <div class="text-[10px] text-gray-400 font-mono">https://cdn.streamsource.net/vod/{tmdb_id}/index.m3u8</div>
                 </div>
               </div>
               <div class="flex items-center space-x-3">
-                <span class="text-[10px] bg-gray-600/30 text-gray-400 font-bold px-2 py-0.5 rounded">Standby</span>
-                <span class="text-[10px] bg-surface-700 text-gray-300 px-2 py-0.5 rounded">720p / 1080p</span>
+                <span class="text-[10px] bg-gray-600/30 text-gray-400 font-bold px-2 py-0.5 rounded">Standby Fallback</span>
+                <span class="text-[10px] bg-surface-700 text-gray-300 px-2 py-0.5 rounded">Auto Failover #3</span>
               </div>
             </div>
           </div>
@@ -695,7 +695,7 @@
         <div id="admin-panel-section-builder" class="hidden space-y-6">
           <div class="flex items-center justify-between border-b border-white/10 pb-4">
             <div>
-              <h3 class="text-base font-bold text-white">Homepage Section Builder</h3>
+              <h3 class="text-base font-bold text-white">Homepage & Kids Section Builder</h3>
               <p class="text-xs text-gray-400">Reorder rows, adjust query taxonomy, and set display cards</p>
             </div>
             <button onclick="triggerAdminAlert('Layout configuration saved successfully!')" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow">
@@ -741,11 +741,11 @@
               <div class="flex items-center space-x-3">
                 <i class="fa-solid fa-grip-vertical text-gray-500 cursor-grab"></i>
                 <div>
-                  <div class="text-xs font-bold text-white">VIP Exclusive 4K Catalog</div>
-                  <div class="text-[10px] text-gray-400">Locked with crown badge • Direct paywall modal trigger</div>
+                  <div class="text-xs font-bold text-white">Kids Mode Curated Hub</div>
+                  <div class="text-[10px] text-gray-400">Family & Animation filtered genres (10751, 16) • PIN Protected</div>
                 </div>
               </div>
-              <span class="text-[10px] bg-amber-500/15 text-amber-400 font-bold px-2 py-0.5 rounded">VIP Gated</span>
+              <span class="text-[10px] bg-emerald-500/15 text-emerald-400 font-bold px-2 py-0.5 rounded">Kids Mode</span>
             </div>
           </div>
         </div>
@@ -778,59 +778,89 @@
                 <span class="text-[10px] bg-amber-500/20 text-amber-400 font-bold px-1.5 py-0.5 rounded">TMDB 8.8</span>
               </div>
               <p id="tmdb-overview" class="text-xs text-gray-400 line-clamp-2">An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.</p>
-              <div class="text-[10px] text-gray-500">Genres: Drama • Action • Thriller | Status: Ready for 1-Click Import</div>
+              <div class="text-[10px] text-gray-500">Genres: Drama • Action • Thriller | Status: Dynamic TMDB Sync Active</div>
             </div>
           </div>
         </div>
 
 
-        <!-- ================= TAB 5: CINEPRO & R2 ================= -->
-        <div id="admin-panel-cinepro" class="hidden space-y-6">
+        <!-- ================= TAB 5: ENDPOINT PRESETS ================= -->
+        <div id="admin-panel-presets" class="hidden space-y-6">
           <div class="border-b border-white/10 pb-4">
-            <h3 class="text-base font-bold text-white">CinePro Streaming Engine & Cloudflare R2</h3>
-            <p class="text-xs text-gray-400">Configure zero-egress bucket credentials and HLS DRM encryption ladders</p>
+            <h3 class="text-base font-bold text-white">TMDB Endpoint Presets & Custom Feeds</h3>
+            <p class="text-xs text-gray-400">Configure automated TMDB queries, carousel row titles, and display limits</p>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-2">
-              <label class="block text-xs font-bold text-white">Cloudflare R2 Bucket Name</label>
-              <input type="text" value="vod-cluster-prod" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-mono">
-              <span class="text-[10px] text-gray-400">Connected to S3 compatible endpoint with $0 egress bandwidth fees</span>
+          <div class="space-y-3">
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3.5 flex items-center justify-between">
+              <div>
+                <div class="text-xs font-bold text-white">Trending Movies & Series</div>
+                <div class="text-[10px] text-gray-400 font-mono">/trending/all/day (Limit: 20 • Cache: 24h)</div>
+              </div>
+              <span class="text-[10px] bg-emerald-500/15 text-emerald-400 font-bold px-2 py-0.5 rounded">Active Preset</span>
             </div>
 
-            <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-2">
-              <label class="block text-xs font-bold text-white">CinePro Hardware DRM Key</label>
-              <input type="password" value="cp_live_sec_994821a8f9024c" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-mono">
-              <span class="text-[10px] text-gray-400">Protects HLS segments against hotlinking and unauthorized scraping</span>
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3.5 flex items-center justify-between">
+              <div>
+                <div class="text-xs font-bold text-white">Top Rated Blockbusters</div>
+                <div class="text-[10px] text-gray-400 font-mono">/movie/top_rated (Limit: 20 • Cache: 24h)</div>
+              </div>
+              <span class="text-[10px] bg-emerald-500/15 text-emerald-400 font-bold px-2 py-0.5 rounded">Active Preset</span>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3.5 flex items-center justify-between">
+              <div>
+                <div class="text-xs font-bold text-white">Popular TV Drama Series</div>
+                <div class="text-[10px] text-gray-400 font-mono">/tv/popular (Limit: 20 • Cache: 24h)</div>
+              </div>
+              <span class="text-[10px] bg-emerald-500/15 text-emerald-400 font-bold px-2 py-0.5 rounded">Active Preset</span>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3.5 flex items-center justify-between">
+              <div>
+                <div class="text-xs font-bold text-white">Kids & Family Animation Hub</div>
+                <div class="text-[10px] text-gray-400 font-mono">/discover/movie?with_genres=10751,16 (Kids Profile)</div>
+              </div>
+              <span class="text-[10px] bg-purple-500/15 text-purple-400 font-bold px-2 py-0.5 rounded">Kids Mode</span>
             </div>
           </div>
         </div>
 
 
-        <!-- ================= TAB 6: PAYWALL & COINS ================= -->
+        <!-- ================= TAB 6: NETFLIX SUBSCRIPTION PLANS ================= -->
         <div id="admin-panel-paywall" class="hidden space-y-6">
           <div class="border-b border-white/10 pb-4">
-            <h3 class="text-base font-bold text-white">Subscriptions & Virtual Coin Economy</h3>
-            <p class="text-xs text-gray-400">Set membership pricing, coin unlocking exchange rates, and preview limits</p>
+            <h3 class="text-base font-bold text-white">Netflix-Style Subscription Plans</h3>
+            <p class="text-xs text-gray-400">Manage customer subscription pricing, resolution quality tiers, and concurrent screens</p>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-2">
-              <div class="text-xs font-bold text-white">VIP Monthly Pass</div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-white">Basic Plan</span>
+                <span class="text-[10px] bg-surface-700 text-gray-300 px-1.5 py-0.5 rounded">720p HD</span>
+              </div>
               <input type="text" value="$9.99 / mo" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-bold">
-              <p class="text-[10px] text-gray-400">Unlimited 4K streaming & zero ads</p>
+              <p class="text-[10px] text-gray-400">1 Screen at once • Ad-free streaming</p>
             </div>
 
-            <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-2">
-              <div class="text-xs font-bold text-white">VIP Annual Pass</div>
-              <input type="text" value="$79.99 / yr" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-bold">
-              <p class="text-[10px] text-gray-400">Save 33% • Highest conversion tier</p>
+            <div class="bg-surface-800 border border-accent-subtle rounded-xl p-4 space-y-2 relative">
+              <span class="absolute -top-2.5 right-3 bg-accent text-white text-[9px] font-black px-2 py-0.5 rounded">POPULAR</span>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-white">Standard Plan</span>
+                <span class="text-[10px] bg-accent-light text-accent font-bold px-1.5 py-0.5 rounded">1080p FHD</span>
+              </div>
+              <input type="text" value="$15.49 / mo" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-bold">
+              <p class="text-[10px] text-gray-400">2 Screens at once • Full HD resolution</p>
             </div>
 
-            <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-2">
-              <div class="text-xs font-bold text-white">Cost per Episode / Title</div>
-              <input type="text" value="10 Coins" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-bold">
-              <p class="text-[10px] text-gray-400">Pay-as-you-go micromonetization</p>
+            <div class="bg-surface-800 border border-amber-500/30 rounded-xl p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-amber-300">Premium Plan</span>
+                <span class="text-[10px] bg-amber-500/20 text-amber-300 font-bold px-1.5 py-0.5 rounded">4K + HDR</span>
+              </div>
+              <input type="text" value="$19.99 / mo" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-bold">
+              <p class="text-[10px] text-gray-400">4 Screens at once • 4K UHD + Spatial Audio</p>
             </div>
           </div>
         </div>
@@ -965,7 +995,7 @@
 
     // Admin Sidebar Tabs Switcher
     function switchAdminTab(tabName) {
-      const tabs = ['dashboard', 'video-sources', 'section-builder', 'tmdb', 'cinepro', 'paywall', 'notifications', 'license'];
+      const tabs = ['dashboard', 'video-sources', 'section-builder', 'tmdb', 'presets', 'paywall', 'notifications', 'license'];
       
       tabs.forEach(t => {
         const panel = document.getElementById('admin-panel-' + t);
@@ -994,57 +1024,13 @@
       }, 2500);
     }
 
-    function switchFeaturedDrama(title, epInfo, posterUrl) {
-      document.getElementById('device-hero-title').innerText = title;
-      document.getElementById('device-hero-img').src = posterUrl;
-      triggerDeviceToast('Selected: ' + title);
-    }
-
-    let inList = false;
-    function simulateAddList() {
-      inList = !inList;
-      const icon = document.getElementById('device-list-icon');
-      const text = document.getElementById('device-list-text');
-      if (inList) {
-        icon.className = "fa-solid fa-check text-[10px] text-emerald-400";
-        text.innerText = "Added";
-        triggerDeviceToast("Added to your Watchlist (synced to Firebase)!");
+    function showTmdbDetails(type) {
+      if (type === 'api') {
+        alert("TMDB API v3/v4: Automatically synchronizes 850,000+ Movies and TV Series with zero local storage requirements.");
+      } else if (type === 'cache') {
+        alert("WordPress Transient Caching: Caches TMDB API responses locally for lightning-fast sub-50ms page loads.");
       } else {
-        icon.className = "fa-solid fa-plus text-[10px]";
-        text.innerText = "My List";
-        triggerDeviceToast("Removed from Watchlist");
-      }
-    }
-
-    function simulatePlayerPlay() {
-      triggerDeviceToast("Starting HLS Stream via Server 1 (CinePro 1080p)...");
-    }
-
-    function setDeviceTab(tab) {
-      triggerDeviceToast("Navigated to: " + tab.toUpperCase());
-    }
-
-    function filterCategory(cat) {
-      ['trending', 'scifi', 'action', 'vip', 'drama'].forEach(c => {
-        const b = document.getElementById('cat-' + c);
-        if (b) {
-          b.className = "px-2.5 py-0.5 rounded-full bg-surface-800 text-gray-300 hover:text-white font-medium whitespace-nowrap";
-        }
-      });
-      const active = document.getElementById('cat-' + cat.toLowerCase().replace(' ', '').replace('4k', ''));
-      if (active) {
-        active.className = "px-2.5 py-0.5 rounded-full bg-accent text-white font-bold whitespace-nowrap shadow-sm";
-      }
-      triggerDeviceToast("Filter: " + cat);
-    }
-
-    function showCdnDetails(type) {
-      if (type === 'r2') {
-        alert("Cloudflare R2 Storage: $0.015/GB storage with ZERO ($0) bandwidth egress fees. Perfect for reducing video delivery costs.");
-      } else if (type === 'cinepro') {
-        alert("CinePro HLS Engine: Hardware DRM protection, automated multi-bitrate ladder (4K, 1080p, 720p, 480p), and instant failover.");
-      } else {
-        alert("Akamai / Cloudinary: Global high-throughput CDN with edge caching in 130+ countries.");
+        alert("4K Media & Cast: Pulls official high-resolution posters, backdrops, trailers, cast lists, and IMDb ratings directly.");
       }
     }
 
