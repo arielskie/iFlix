@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="https://iflix.stream">
+  <a href="https://iflix.ct.ws/">
     <img src="https://img.shields.io/badge/🚀%20LIVE%20DEMO-EXPLORE%20IFLIX%20ONLINE-E50914?style=for-the-badge&logo=googlechrome&logoColor=white&labelColor=141414" alt="Live Demo Button" height="38">
   </a>
   <a href="docs/README.md">
