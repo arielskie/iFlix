@@ -257,90 +257,29 @@
     <!-- 2-Column Showcase Grid (Matching User Reference Image 2) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
       
-      <!-- LEFT COLUMN: Interactive Mobile / App Device Mockup -->
+      <!-- LEFT COLUMN: Mobile App Device Mockup -->
       <div class="lg:col-span-5 flex flex-col items-center">
         
         <!-- Phone Device Shell -->
         <div class="relative group">
           <!-- Ambient Glow behind phone -->
-          <div class="absolute -inset-2 bg-gradient-to-tr from-accent/30 via-red-500/10 to-purple-500/20 rounded-[50px] blur-2xl opacity-60 group-hover:opacity-100 transition duration-500"></div>
+          <div class="absolute -inset-2 bg-gradient-to-tr from-accent/30 via-red-500/10 to-purple-500/20 rounded-[50px] blur-2xl opacity-60 transition duration-500"></div>
 
           <div class="mobile-frame">
             <!-- Physical Speaker Slit at top -->
             <div class="phone-island"></div>
 
-            <!-- Real Mobile App Screenshot with Interactive Hotspots -->
-            <div class="relative w-full h-full select-none overflow-hidden bg-black">
-              <img src="assets/app-mockup.png" alt="iFlix Mobile App Interface" class="w-full h-full object-cover">
-
-              <!-- Hotspot: Play Button -->
-              <div onclick="triggerDeviceToast('▶ Starting 4K Stream: Resident Evil (CinePro HLS Direct)...')" 
-                   class="absolute top-[39.5%] left-[11%] w-[25%] h-[5%] rounded-lg cursor-pointer hover:bg-white/10 active:bg-white/20 transition" 
-                   title="Click to Play"></div>
-
-              <!-- Hotspot: Details Button -->
-              <div onclick="triggerDeviceToast('ℹ️ Resident Evil (2026): 4K ULTRA HD • 1h 40m • TV-MA • Horror / Sci-Fi')" 
-                   class="absolute top-[39.5%] left-[38%] w-[28%] h-[5%] rounded-lg cursor-pointer hover:bg-white/10 active:bg-white/20 transition" 
-                   title="Click for Details"></div>
-
-              <!-- Hotspot: + Watchlist Button -->
-              <div onclick="triggerDeviceToast('✓ Added Resident Evil to Watchlist (Firebase Sync)')" 
-                   class="absolute top-[39.5%] left-[68%] w-[12%] h-[5%] rounded-lg cursor-pointer hover:bg-white/10 active:bg-white/20 transition" 
-                   title="Add to My List"></div>
-
-              <!-- Hotspot: Search Bar -->
-              <div onclick="triggerDeviceToast('🔍 TMDB Instant Search: Titles, people, genres...')" 
-                   class="absolute top-[2%] right-[14%] w-[38%] h-[4.5%] rounded-lg cursor-pointer hover:bg-white/10" 
-                   title="Search"></div>
-
-              <!-- Hotspot: Notifications Bell -->
-              <div onclick="triggerDeviceToast('🔔 4 Unread Notifications: New season drops available!')" 
-                   class="absolute top-[2%] right-[2%] w-[10%] h-[4.5%] rounded-lg cursor-pointer hover:bg-white/10" 
-                   title="Notifications"></div>
-
-              <!-- Hotspot: Trending Now Horror (Resident Evil) -->
-              <div onclick="triggerDeviceToast('Selected: Resident Evil (Horror • 2026 • 1h 40m • ★ 7.4)')" 
-                   class="absolute top-[53%] left-[10%] w-[38%] h-[27%] rounded-xl cursor-pointer hover:ring-2 hover:ring-accent transition" 
-                   title="Resident Evil"></div>
-
-              <!-- Hotspot: Trending Now Drama (Monster) -->
-              <div onclick="triggerDeviceToast('Selected: Monster: The Lizzie Borden Story (Drama • 13 Episodes • ★ 6.9)')" 
-                   class="absolute top-[53%] left-[51%] w-[38%] h-[27%] rounded-xl cursor-pointer hover:ring-2 hover:ring-accent transition" 
-                   title="Monster Drama"></div>
-
-              <!-- Hotspot: Bottom Nav Home -->
-              <div onclick="triggerDeviceToast('🏠 Home Feed: Netflix 1:1 Dark UI loaded')" 
-                   class="absolute bottom-[0.5%] left-[4%] w-[20%] h-[6%] cursor-pointer hover:bg-white/10 rounded-lg" 
-                   title="Home"></div>
-
-              <!-- Hotspot: Bottom Nav TV -->
-              <div onclick="triggerDeviceToast('📺 TV Shows & Drama Series Catalog')" 
-                   class="absolute bottom-[0.5%] left-[27%] w-[20%] h-[6%] cursor-pointer hover:bg-white/10 rounded-lg" 
-                   title="TV Shows"></div>
-
-              <!-- Hotspot: Bottom Nav Movie -->
-              <div onclick="triggerDeviceToast('🎬 Movies Catalog: 4K HDR & Multi-Audio')" 
-                   class="absolute bottom-[0.5%] left-[52%] w-[20%] h-[6%] cursor-pointer hover:bg-white/10 rounded-lg" 
-                   title="Movies"></div>
-
-              <!-- Hotspot: Bottom Nav Account -->
-              <div onclick="triggerDeviceToast('👤 User Profiles & Kids Mode PIN (1234)')" 
-                   class="absolute bottom-[0.5%] left-[76%] w-[20%] h-[6%] cursor-pointer hover:bg-white/10 rounded-lg" 
-                   title="Account"></div>
-
-              <!-- Live Toast Message Popup inside the Phone -->
-              <div id="device-toast" class="hidden absolute bottom-16 left-3 right-3 bg-[#11131b]/95 backdrop-blur-md border border-accent text-white text-[10.5px] font-bold py-2 px-3 rounded-xl shadow-2xl text-center z-50 transition-all leading-snug">
-                Toast alert message
-              </div>
+            <!-- Real Mobile App Screenshot (Clean, Non-Interactive) -->
+            <div class="w-full h-full select-none overflow-hidden bg-black">
+              <img src="assets/app-mockup.png" alt="iFlix Mobile App Interface" class="w-full h-full object-cover pointer-events-none">
             </div>
-
           </div>
         </div>
 
-        <!-- Hint Under Phone Device -->
+        <!-- Caption Under Phone Device -->
         <p class="text-[11px] text-gray-400 mt-4 flex items-center space-x-1.5">
-          <i class="fa-solid fa-circle-check text-accent text-xs"></i>
-          <span>Live Mobile Interface • Click buttons & posters on the phone to test!</span>
+          <i class="fa-solid fa-mobile-screen text-accent text-xs"></i>
+          <span>iFlix Mobile App Interface • 1:1 Netflix Dark UI</span>
         </p>
       </div>
 
