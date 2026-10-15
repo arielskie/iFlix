@@ -3,778 +3,1181 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iFlix Stream — Live Interactive Platform Simulator & Showcase</title>
-  <meta name="description" content="Explore the interactive live simulator for iFlix Stream: Netflix 1:1 Dark UI, Multi-Profile with Kids PIN, Multi-Server Video Failover, CinePro HLS, and WordPress Admin Studio.">
+  <title>iFlix Stream — Next-Gen Video On-Demand WordPress Theme & Admin Studio</title>
+  <meta name="description" content="Explore iFlix Stream: Enterprise Video On-Demand WordPress Theme with Netflix 1:1 Dark UI, Multi-Server HLS Failover, CinePro Streaming Engine, and Interactive WordPress Admin Studio.">
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            netflix: {
-              red: '#E50914',
-              redHover: '#b80710',
-              black: '#141414',
-              dark: '#0f0f0f',
-              card: '#181818',
-              border: 'rgba(255,255,255,0.15)',
-              gold: '#ffd700'
+            accent: 'var(--accent-color, #E50914)',
+            accentHover: 'var(--accent-hover, #B80710)',
+            accentGlow: 'var(--accent-glow, rgba(229, 9, 20, 0.4))',
+            surface: {
+              900: '#0c0d12',
+              850: '#11131b',
+              800: '#161924',
+              750: '#1c202e',
+              700: '#23283a',
+              600: '#32394f'
             }
           }
         }
       }
     }
   </script>
+
   <style>
     :root {
-      --netflix-red: #E50914;
-      --netflix-glow: rgba(229, 9, 20, 0.45);
+      --accent-color: #E50914;
+      --accent-hover: #b80710;
+      --accent-glow: rgba(229, 9, 20, 0.45);
+      --accent-light: rgba(229, 9, 20, 0.15);
+      --accent-border: rgba(229, 9, 20, 0.35);
     }
+
+    [data-theme="emerald"] {
+      --accent-color: #10B981;
+      --accent-hover: #059669;
+      --accent-glow: rgba(16, 185, 129, 0.45);
+      --accent-light: rgba(16, 185, 129, 0.15);
+      --accent-border: rgba(16, 185, 129, 0.35);
+    }
+
+    [data-theme="cyan"] {
+      --accent-color: #06B6D4;
+      --accent-hover: #0891b2;
+      --accent-glow: rgba(6, 182, 212, 0.45);
+      --accent-light: rgba(6, 182, 212, 0.15);
+      --accent-border: rgba(6, 182, 212, 0.35);
+    }
+
+    [data-theme="amber"] {
+      --accent-color: #F59E0B;
+      --accent-hover: #d97706;
+      --accent-glow: rgba(245, 158, 11, 0.45);
+      --accent-light: rgba(245, 158, 11, 0.15);
+      --accent-border: rgba(245, 158, 11, 0.35);
+    }
+
     body {
-      background-color: #141414;
-      color: #ffffff;
+      background-color: #0c0d12;
+      color: #f1f5f9;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
+
     /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #141414; }
-    ::-webkit-scrollbar-thumb { background: #333333; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #4f4f4f; }
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #0c0d12; }
+    ::-webkit-scrollbar-thumb { background: #23283a; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #32394f; }
 
-    /* Netflix Glow */
-    .glow-red { box-shadow: 0 0 25px var(--netflix-glow); }
-    .text-netflix { color: var(--netflix-red); }
-    .bg-netflix { background-color: var(--netflix-red); }
-    .border-netflix { border-color: var(--netflix-red); }
-
-    /* Hero Billboard Background Gradient */
-    .billboard-gradient {
-      background: linear-gradient(77deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.85) 100%),
-                  radial-gradient(circle at 80% 20%, rgba(229,9,20,0.2) 0%, transparent 60%);
+    .glow-accent {
+      box-shadow: 0 0 25px var(--accent-glow);
+    }
+    .glow-sm {
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .border-accent {
+      border-color: var(--accent-color);
+    }
+    .text-accent {
+      color: var(--accent-color);
+    }
+    .bg-accent {
+      background-color: var(--accent-color);
+    }
+    .bg-accent-light {
+      background-color: var(--accent-light);
+    }
+    .border-accent-subtle {
+      border-color: var(--accent-border);
     }
 
-    /* Video Player Mockup Aspect Ratio */
-    .player-container {
+    /* Phone device mockup casing */
+    .mobile-frame {
       position: relative;
+      width: 320px;
+      height: 640px;
       background: #000;
-      border-radius: 12px;
+      border-radius: 42px;
+      box-shadow: 0 25px 60px -15px rgba(0,0,0,0.9), 0 0 0 6px #242938, 0 0 0 8px #131722;
       overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
-      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    @media (min-width: 640px) {
+      .mobile-frame {
+        width: 340px;
+        height: 680px;
+      }
+    }
+
+    .phone-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 20px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 40;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Animation */
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.92; transform: scale(1.02); }
+    }
+    .animate-pulse-subtle {
+      animation: pulse-subtle 3s infinite ease-in-out;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-red-600 selection:text-white">
+<body class="min-h-screen flex flex-col antialiased selection:bg-red-600 selection:text-white" data-theme="red">
 
-  <!-- ================= TOP GLOBAL BAR ================= -->
-  <header class="sticky top-0 z-50 bg-[#141414]/95 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3 transition-all duration-300">
+  <!-- ================= TOP GLOBAL HEADER ================= -->
+  <header class="sticky top-0 z-50 bg-[#0c0d12]/90 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3.5 transition-all">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
       
-      <!-- Brand Logo -->
-      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchSimulatorView('player')">
-        <span class="text-2xl sm:text-3xl font-black tracking-tighter text-[#E50914] uppercase drop-shadow">iFLIX</span>
-        <span class="hidden sm:inline-block bg-white/10 text-white/90 text-[10px] font-bold px-2 py-0.5 rounded border border-white/20 uppercase tracking-widest">
-          INTERACTIVE SIMULATOR
-        </span>
+      <!-- Brand Logo & Badge -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('landing')">
+        <div class="w-8 h-8 rounded-lg bg-accent flex items-center justify-center font-black text-white text-base shadow-lg transition-colors">
+          <i class="fa-solid fa-play text-xs"></i>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-xl sm:text-2xl font-black tracking-tight text-white uppercase">iFlix</span>
+          <span class="bg-white/10 text-white/80 text-[10px] font-bold px-2 py-0.5 rounded border border-white/15 uppercase tracking-wider">
+            PRO DEMO
+          </span>
+        </div>
       </div>
 
-      <!-- Mode Switcher -->
-      <div class="flex items-center bg-black/60 p-1 rounded-xl border border-white/10 shadow-inner">
-        <button id="btn-mode-player" onclick="switchSimulatorView('player')" class="flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition bg-[#E50914] text-white shadow-md">
-          <i class="fa-solid fa-play text-[11px]"></i>
-          <span>Streaming Hub & Player</span>
-        </button>
-        <button id="btn-mode-admin" onclick="switchSimulatorView('admin')" class="flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition">
-          <i class="fa-solid fa-sliders text-[11px]"></i>
-          <span>WordPress Admin Studio</span>
-        </button>
-      </div>
+      <!-- Center Navigation Pills -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <div class="flex items-center bg-surface-850 p-1 rounded-xl border border-white/10 shadow-inner">
+          <button id="nav-btn-landing" onclick="switchView('landing')" class="flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition bg-accent text-white shadow-md">
+            <i class="fa-solid fa-mobile-screen-button text-[12px]"></i>
+            <span class="hidden sm:inline">Mobile App Experience</span>
+            <span class="sm:hidden">App Demo</span>
+          </button>
+          <button id="nav-btn-admin" onclick="switchView('admin')" class="flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition">
+            <i class="fa-solid fa-sliders text-[12px]"></i>
+            <span class="hidden sm:inline">WordPress Admin Panel</span>
+            <span class="sm:hidden">Admin</span>
+          </button>
+        </div>
 
-      <!-- Action Links -->
-      <div class="flex items-center space-x-3">
-        <a href="docs/README.md" class="hidden md:flex items-center space-x-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/20 transition">
-          <i class="fa-solid fa-book-bookmark text-xs"></i>
-          <span>Documentation</span>
+        <!-- Live Web Demo Action Button -->
+        <a id="header-live-demo-btn" href="https://abefilm.com" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 shadow-md hover:shadow-emerald-500/25 transition">
+          <i class="fa-solid fa-globe text-xs"></i>
+          <span>Live Web Demo</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
         </a>
-        <a href="https://github.com/arielskie/iFlix" target="_blank" class="bg-black/60 hover:bg-black text-gray-200 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/20 transition flex items-center gap-1.5">
+      </div>
+
+      <!-- Right Controls: Theme Switcher & GitHub -->
+      <div class="flex items-center space-x-3">
+        <!-- Theme Picker Dots -->
+        <div class="hidden md:flex items-center space-x-1.5 bg-surface-850 px-2.5 py-1.5 rounded-lg border border-white/10">
+          <span class="text-[11px] text-gray-400 mr-1 font-medium">Theme:</span>
+          <button onclick="setPageTheme('red')" title="Netflix Red" class="w-3.5 h-3.5 rounded-full bg-[#E50914] ring-2 ring-transparent hover:scale-125 transition-transform" id="dot-red"></button>
+          <button onclick="setPageTheme('emerald')" title="ShortTV Emerald" class="w-3.5 h-3.5 rounded-full bg-[#10B981] ring-2 ring-transparent hover:scale-125 transition-transform" id="dot-emerald"></button>
+          <button onclick="setPageTheme('cyan')" title="Cyber Cyan" class="w-3.5 h-3.5 rounded-full bg-[#06B6D4] ring-2 ring-transparent hover:scale-125 transition-transform" id="dot-cyan"></button>
+          <button onclick="setPageTheme('amber')" title="VIP Gold" class="w-3.5 h-3.5 rounded-full bg-[#F59E0B] ring-2 ring-transparent hover:scale-125 transition-transform" id="dot-amber"></button>
+        </div>
+
+        <!-- GitHub Repo Button -->
+        <a href="https://github.com/arielskie/iFlix" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center space-x-2 bg-surface-800 hover:bg-surface-700 text-white text-xs font-semibold px-3 py-1.5 rounded-xl border border-white/15 transition shadow-sm">
           <i class="fa-brands fa-github text-sm"></i>
-          <span>GitHub</span>
+          <span class="hidden lg:inline">GitHub Repo</span>
         </a>
       </div>
 
     </div>
   </header>
 
-  <!-- ================= VIEW 1: FRONTEND STREAMING HUB & PLAYER ================= -->
-  <main id="view-player" class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-6">
+
+  <!-- ================= VIEW 1: LANDING PAGE & SHOWCASE ================= -->
+  <main id="view-landing" class="flex-1 max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-12 w-full transition-opacity duration-300">
     
-    <!-- Hero Billboard Simulation -->
-    <section class="relative rounded-2xl overflow-hidden billboard-gradient border border-white/10 p-6 sm:p-12 mb-10 shadow-2xl">
-      <div class="max-w-2xl relative z-10">
-        <div class="inline-flex items-center gap-2 bg-[#E50914] text-white text-[11px] font-black px-2.5 py-0.5 rounded tracking-wider uppercase mb-3">
-          #1 IN TRENDING TODAY
-        </div>
-        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase mb-3 drop-shadow-md">
-          NEAGLEY: DEEP COVER
-        </h1>
-        <div class="flex items-center gap-3 text-xs sm:text-sm text-gray-300 mb-4 font-semibold">
-          <span class="text-green-400 font-bold">98% Match</span>
-          <span>2026</span>
-          <span class="border border-white/40 px-1.5 py-0.2 rounded text-[11px]">18+</span>
-          <span>1 Season</span>
-          <span class="border border-white/40 px-1.5 py-0.2 rounded text-[11px] font-bold">4K ULTRA HD</span>
-        </div>
-        <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3">
-          When a former military police comrade disappears while investigating a rogue private intelligence firm, Neagley goes dark to infiltrate the syndicate before the trail goes cold.
-        </p>
-
-        <!-- CTAs -->
-        <div class="flex flex-wrap items-center gap-3">
-          <button onclick="launchInteractivePlayer('Neagley: Deep Cover', 'tv')" class="bg-white hover:bg-gray-200 text-black px-6 py-2.5 rounded-lg font-black text-sm flex items-center gap-2.5 shadow-lg transition active:scale-95">
-            <i class="fa-solid fa-play text-base text-black"></i>
-            <span>Play Now</span>
-          </button>
-          <button onclick="openDetailsModalSim('Neagley: Deep Cover', '2026', '98%', 'Action & Crime', '1 Season')" class="bg-gray-700/80 hover:bg-gray-600 text-white px-5 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 border border-white/20 backdrop-blur-sm transition">
-            <i class="fa-solid fa-circle-info text-base"></i>
-            <span>More Info</span>
-          </button>
-          <button id="hero-btn-add-list" onclick="toggleSimList('hero-btn-add-list')" class="w-10 h-10 rounded-full border border-white/40 hover:border-white bg-black/40 flex items-center justify-center text-white transition" title="Add to My List">
-            <i class="fa-solid fa-plus text-sm"></i>
-          </button>
-          <button id="hero-btn-like" onclick="toggleSimLike('hero-btn-like')" class="w-10 h-10 rounded-full border border-white/40 hover:border-white bg-black/40 flex items-center justify-center text-white transition" title="I Like This">
-            <i class="fa-regular fa-thumbs-up text-sm"></i>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Interactive Video Player Sandbox -->
-    <section class="mb-12">
-      <div class="flex items-center justify-between mb-4">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
-            <i class="fa-solid fa-clapperboard text-[#E50914]"></i>
-            <span>Interactive iflixPlayer Sandbox</span>
-          </h2>
-          <p class="text-xs sm:text-sm text-gray-400">Experience resolution tier switching (360p to 4K), subtitles, skip intro, and multi-server failover.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <button onclick="triggerPaywallDemo()" class="bg-[#E50914]/20 hover:bg-[#E50914]/30 text-[#E50914] border border-[#E50914]/40 text-xs font-bold px-3 py-1.5 rounded-lg transition">
-            <i class="fa-solid fa-lock mr-1"></i> Test Paywall
-          </button>
-          <button onclick="triggerProfilePinDemo()" class="bg-white/10 hover:bg-white/20 text-gray-200 text-xs font-bold px-3 py-1.5 rounded-lg border border-white/20 transition">
-            <i class="fa-solid fa-key mr-1"></i> Kids PIN
-          </button>
-        </div>
+    <!-- Hero Header -->
+    <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+      <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-accent-light border border-accent-subtle text-accent text-xs font-bold mb-4 tracking-wide shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
+        <span>Live Interactive Video-On-Demand Streaming Platform</span>
       </div>
 
-      <!-- Player Frame Mockup -->
-      <div class="player-container aspect-video w-full max-w-5xl mx-auto flex flex-col justify-between p-4 sm:p-6" style="background: radial-gradient(circle at center, #1e1e1e 0%, #0a0a0a 100%);">
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-4 leading-tight">
+        Next-Gen Video On-Demand<br>
+        <span class="text-accent transition-colors">WordPress Theme</span>
+      </h1>
+
+      <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
+        Experience the Netflix 1:1 Dark UI, multi-server HLS failover, CinePro streaming engine, VIP Pass coin paywalls, and adaptive 4K/1080p playback.
+      </p>
+
+      <!-- Action Buttons Row -->
+      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+        <a href="https://abefilm.com" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center space-x-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-accent hover:opacity-90 shadow-lg glow-sm transition transform hover:-translate-y-0.5">
+          <i class="fa-solid fa-globe text-sm"></i>
+          <span>Explore Live Demo (abefilm.com)</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i>
+        </a>
+
+        <button onclick="switchView('admin')" 
+                class="flex items-center space-x-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-surface-800 hover:bg-surface-700 border border-white/15 shadow-md transition transform hover:-translate-y-0.5">
+          <i class="fa-solid fa-sliders text-accent text-sm"></i>
+          <span>Test WordPress Admin Simulator</span>
+          <i class="fa-solid fa-wand-magic-sparkles text-xs ml-1 opacity-70"></i>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- 2-Column Showcase Grid (Matching User Reference Image 2) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+      
+      <!-- LEFT COLUMN: Interactive Mobile / App Device Mockup -->
+      <div class="lg:col-span-5 flex flex-col items-center">
         
-        <!-- Player Top Bar -->
-        <div class="flex items-center justify-between text-white z-20">
-          <div class="flex items-center space-x-3">
-            <button class="text-gray-400 hover:text-white transition"><i class="fa-solid fa-arrow-left text-lg"></i></button>
-            <div>
-              <h3 id="player-title" class="text-sm sm:text-base font-bold text-white">Fight Club (1999)</h3>
-              <p id="player-sub" class="text-[11px] text-gray-400">Server 1 (Direct CinePro HLS 1080p Full HD)</p>
+        <!-- Phone Device Shell -->
+        <div class="mobile-frame">
+          <!-- Dynamic Island -->
+          <div class="phone-island"></div>
+
+          <!-- Status Bar -->
+          <div class="pt-2 px-6 flex justify-between items-center text-[10px] text-white/70 font-semibold z-30">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1.5 text-[9px]">
+              <i class="fa-solid fa-signal"></i>
+              <i class="fa-solid fa-wifi"></i>
+              <i class="fa-solid fa-battery-full text-[11px]"></i>
             </div>
           </div>
-          <div class="flex items-center space-x-2">
-            <span class="bg-[#E50914] text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">PRO STREAMS</span>
+
+          <!-- Mobile App Header -->
+          <div class="px-4 py-2 flex items-center justify-between border-b border-white/10 bg-[#0c0d12]/80 backdrop-blur z-20">
+            <div class="flex items-center space-x-2">
+              <span class="text-sm font-black text-accent uppercase tracking-wider">iFLIX</span>
+              <span class="text-[9px] bg-accent-light text-accent px-1.5 py-0.5 rounded font-bold">STREAM</span>
+            </div>
+            <div class="flex items-center space-x-3 text-xs text-white/80">
+              <i class="fa-solid fa-magnifying-glass cursor-pointer hover:text-white" onclick="triggerDeviceToast('Search TMDB / Titles')"></i>
+              <i class="fa-regular fa-bookmark cursor-pointer hover:text-white" onclick="triggerDeviceToast('Saved Watchlist Opened')"></i>
+              <i class="fa-solid fa-globe cursor-pointer hover:text-white" onclick="triggerDeviceToast('Language: English (US)')"></i>
+            </div>
+          </div>
+
+          <!-- Scrollable App Screen Content -->
+          <div class="flex-1 overflow-y-auto hide-scrollbar px-3 py-2 space-y-3 bg-[#0a0a0f]">
+            
+            <!-- Category Filter Pills -->
+            <div class="flex items-center space-x-1.5 overflow-x-auto hide-scrollbar py-1 text-[11px]">
+              <button onclick="filterCategory('Trending')" id="cat-trending" class="px-2.5 py-0.5 rounded-full bg-accent text-white font-bold whitespace-nowrap shadow-sm">Trending</button>
+              <button onclick="filterCategory('Sci-Fi')" id="cat-scifi" class="px-2.5 py-0.5 rounded-full bg-surface-800 text-gray-300 hover:text-white font-medium whitespace-nowrap">Sci-Fi</button>
+              <button onclick="filterCategory('Action')" id="cat-action" class="px-2.5 py-0.5 rounded-full bg-surface-800 text-gray-300 hover:text-white font-medium whitespace-nowrap">Action</button>
+              <button onclick="filterCategory('VIP 4K')" id="cat-vip" class="px-2.5 py-0.5 rounded-full bg-surface-800 text-amber-400 hover:text-white font-medium whitespace-nowrap"><i class="fa-solid fa-crown text-[9px] mr-1"></i>VIP 4K</button>
+              <button onclick="filterCategory('Drama')" id="cat-drama" class="px-2.5 py-0.5 rounded-full bg-surface-800 text-gray-300 hover:text-white font-medium whitespace-nowrap">Drama</button>
+            </div>
+
+            <!-- Hero Featured Drama Card -->
+            <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-lg group">
+              <img id="device-hero-img" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=600&auto=format&fit=crop&q=80" 
+                   alt="Featured Drama" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+              
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-black/40 to-transparent"></div>
+
+              <!-- Badges -->
+              <div class="absolute top-2 left-2 flex items-center space-x-1.5">
+                <span class="bg-accent text-white text-[9px] font-black px-2 py-0.5 rounded shadow">TOP 1</span>
+                <span class="bg-black/60 backdrop-blur text-white text-[9px] font-bold px-1.5 py-0.5 rounded border border-white/20">4K HDR</span>
+              </div>
+
+              <!-- Title & Meta -->
+              <div class="absolute bottom-2 left-3 right-3">
+                <h3 id="device-hero-title" class="text-sm font-bold text-white drop-shadow leading-tight mb-1">
+                  Guardian of the Forbidden Realm
+                </h3>
+                <div class="flex items-center space-x-2 text-[10px] text-gray-300 mb-2">
+                  <span class="text-amber-400 font-bold"><i class="fa-solid fa-star text-[9px] mr-0.5"></i>4.9</span>
+                  <span>•</span>
+                  <span>16 Episodes</span>
+                  <span>•</span>
+                  <span>1.2M Views</span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center space-x-2">
+                  <button onclick="simulatePlayerPlay()" class="flex-1 py-1 px-3 rounded-lg bg-accent text-white text-xs font-bold flex items-center justify-center space-x-1 shadow hover:opacity-90">
+                    <i class="fa-solid fa-play text-[10px]"></i>
+                    <span>Play</span>
+                  </button>
+                  <button onclick="simulateAddList()" class="py-1 px-3 rounded-lg bg-white/20 backdrop-blur hover:bg-white/30 text-white text-xs font-semibold flex items-center space-x-1">
+                    <i class="fa-solid fa-plus text-[10px]" id="device-list-icon"></i>
+                    <span id="device-list-text">My List</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Watch History Section -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5 px-0.5">
+                <div class="flex items-center space-x-1.5 text-xs font-bold text-white">
+                  <i class="fa-solid fa-clock-rotate-left text-accent text-[11px]"></i>
+                  <span>Watch History</span>
+                </div>
+                <span class="text-[10px] text-accent font-semibold cursor-pointer" onclick="triggerDeviceToast('All History Loaded')">View all &gt;</span>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2">
+                <!-- Item 1 -->
+                <div class="cursor-pointer group" onclick="switchFeaturedDrama('Fight Club: Underground', 'Ep. 2 • 17%', 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=400&auto=format&fit=crop&q=80')">
+                  <div class="relative rounded-lg overflow-hidden border border-white/10 aspect-[3/4] bg-surface-800">
+                    <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                    <span class="absolute top-1 left-1 bg-red-600/90 text-white text-[8px] font-bold px-1 rounded">RESUME</span>
+                    <div class="absolute bottom-0 inset-x-0 h-1 bg-gray-700">
+                      <div class="h-full bg-accent" style="width: 17%"></div>
+                    </div>
+                  </div>
+                  <div class="mt-1 text-[9px] font-medium text-gray-300 truncate">Fight Club</div>
+                  <div class="text-[8px] text-gray-500">Ep. 2 • 17%</div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="cursor-pointer group" onclick="switchFeaturedDrama('Inception: Infinite Dream', 'Ep. 6 • 83%', 'https://images.unsplash.com/photo-1509281373149-e957c6296406?w=400&auto=format&fit=crop&q=80')">
+                  <div class="relative rounded-lg overflow-hidden border border-white/10 aspect-[3/4] bg-surface-800">
+                    <img src="https://images.unsplash.com/photo-1509281373149-e957c6296406?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                    <span class="absolute top-1 left-1 bg-red-600/90 text-white text-[8px] font-bold px-1 rounded">RESUME</span>
+                    <div class="absolute bottom-0 inset-x-0 h-1 bg-gray-700">
+                      <div class="h-full bg-accent" style="width: 83%"></div>
+                    </div>
+                  </div>
+                  <div class="mt-1 text-[9px] font-medium text-gray-300 truncate">Inception Dream</div>
+                  <div class="text-[8px] text-gray-500">Ep. 6 • 83%</div>
+                </div>
+
+                <!-- Item 3 (VIP Locked) -->
+                <div class="cursor-pointer group" onclick="switchFeaturedDrama('Interstellar Odyssey', 'VIP Premiere', 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&auto=format&fit=crop&q=80')">
+                  <div class="relative rounded-lg overflow-hidden border border-white/10 aspect-[3/4] bg-surface-800">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                    <span class="absolute top-1 left-1 bg-amber-500 text-black text-[8px] font-black px-1 rounded"><i class="fa-solid fa-crown text-[7px]"></i> VIP</span>
+                    <div class="absolute bottom-0 inset-x-0 h-1 bg-gray-700">
+                      <div class="h-full bg-amber-400" style="width: 35%"></div>
+                    </div>
+                  </div>
+                  <div class="mt-1 text-[9px] font-medium text-gray-300 truncate">Interstellar</div>
+                  <div class="text-[8px] text-amber-400">VIP Premiere</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Most Popular Row -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5 px-0.5">
+                <div class="flex items-center space-x-1.5 text-xs font-bold text-white">
+                  <span>Most Popular</span>
+                  <span>🔥</span>
+                </div>
+                <span class="text-[10px] text-accent font-semibold cursor-pointer" onclick="triggerDeviceToast('Full Catalog Filter')">View all &gt;</span>
+              </div>
+
+              <div class="flex space-x-2 overflow-x-auto hide-scrollbar pb-1">
+                <div class="w-20 flex-shrink-0 cursor-pointer" onclick="switchFeaturedDrama('Pulp Fiction Crime', 'HD Complete', 'https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=400&auto=format&fit=crop&q=80')">
+                  <div class="rounded-lg overflow-hidden aspect-[2/3] border border-white/10 bg-surface-800">
+                    <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                  </div>
+                  <div class="text-[9px] text-gray-300 font-medium truncate mt-1">Pulp Fiction</div>
+                </div>
+
+                <div class="w-20 flex-shrink-0 cursor-pointer" onclick="switchFeaturedDrama('Gladiator Coliseum', '4K Remaster', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=400&auto=format&fit=crop&q=80')">
+                  <div class="rounded-lg overflow-hidden aspect-[2/3] border border-white/10 bg-surface-800">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                  </div>
+                  <div class="text-[9px] text-gray-300 font-medium truncate mt-1">Gladiator</div>
+                </div>
+
+                <div class="w-20 flex-shrink-0 cursor-pointer" onclick="switchFeaturedDrama('Cyber Shadow 2099', 'Dolby Atmos', 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80')">
+                  <div class="rounded-lg overflow-hidden aspect-[2/3] border border-white/10 bg-surface-800">
+                    <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                  </div>
+                  <div class="text-[9px] text-gray-300 font-medium truncate mt-1">Cyber Shadow</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Phone Toast Message Banner -->
+          <div id="device-toast" class="hidden absolute bottom-14 left-4 right-4 bg-surface-800/95 backdrop-blur border border-accent text-white text-[10px] font-semibold py-1.5 px-3 rounded-lg shadow-xl text-center z-40 transition-all">
+            Toast alert message
+          </div>
+
+          <!-- Phone Bottom Navigation Bar -->
+          <div class="px-3 py-2 bg-[#0c0d12] border-t border-white/10 flex justify-between items-center text-gray-400 z-30">
+            <button onclick="setDeviceTab('home')" class="flex flex-col items-center space-y-0.5 text-accent">
+              <i class="fa-solid fa-house text-xs"></i>
+              <span class="text-[8px] font-bold">Home</span>
+            </button>
+            <button onclick="setDeviceTab('discover')" class="flex flex-col items-center space-y-0.5 hover:text-white">
+              <i class="fa-solid fa-compass text-xs"></i>
+              <span class="text-[8px]">Discover</span>
+            </button>
+            <button onclick="setDeviceTab('vip')" class="flex flex-col items-center space-y-0.5 text-amber-400 hover:text-amber-300">
+              <i class="fa-solid fa-crown text-xs"></i>
+              <span class="text-[8px] font-bold">VIP Pass</span>
+            </button>
+            <button onclick="setDeviceTab('ranking')" class="flex flex-col items-center space-y-0.5 hover:text-white">
+              <i class="fa-solid fa-trophy text-xs"></i>
+              <span class="text-[8px]">Ranking</span>
+            </button>
+            <button onclick="setDeviceTab('account')" class="flex flex-col items-center space-y-0.5 hover:text-white">
+              <i class="fa-solid fa-user text-xs"></i>
+              <span class="text-[8px]">Account</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Hint Under Phone Device -->
+        <p class="text-[11px] text-gray-400 mt-4 flex items-center space-x-1.5">
+          <i class="fa-solid fa-circle-info text-accent text-xs"></i>
+          <span>Interactive Demo: Click titles, switch tabs & test VIP unlocks!</span>
+        </p>
+      </div>
+
+
+      <!-- RIGHT COLUMN: 3 Feature Cards (Matching User Reference Image 2) -->
+      <div class="lg:col-span-7 space-y-5">
+        
+        <!-- CARD 1: Zero-Egress Multi-CDN Storage -->
+        <div class="bg-surface-850 border border-white/10 rounded-2xl p-5 sm:p-6 shadow-xl relative overflow-hidden group hover:border-white/20 transition">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                <i class="fa-solid fa-cloud text-base"></i>
+              </div>
+              <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">Zero-Egress Multi-CDN Storage</h3>
+            </div>
+            <span class="bg-blue-500/15 text-blue-400 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-blue-500/30 uppercase tracking-wider">
+              COST SAVING
+            </span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-4">
+            Eliminate massive streaming bandwidth bills. iFlix natively supports <span class="text-white font-semibold">Cloudflare R2</span> with zero egress fees, <span class="text-white font-semibold">CinePro HLS</span> with hardware encryption, and <span class="text-white font-semibold">Cloudinary / Akamai</span> with automated 1080p/4K multi-bitrate transcoding and smart folder routing (<code class="text-accent text-xs font-mono">stream / Movie Title</code>).
+          </p>
+
+          <!-- 3 Integration Cards Sub-Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 text-center hover:border-accent-subtle transition cursor-pointer" onclick="showCdnDetails('r2')">
+              <i class="fa-solid fa-cloud text-orange-400 text-lg mb-1.5"></i>
+              <div class="text-xs font-bold text-white">Cloudflare R2</div>
+              <div class="text-[10px] text-gray-400 mt-0.5">$0 Bandwidth Egress</div>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 text-center hover:border-accent-subtle transition cursor-pointer" onclick="showCdnDetails('cinepro')">
+              <i class="fa-solid fa-shield-halved text-rose-400 text-lg mb-1.5"></i>
+              <div class="text-xs font-bold text-white">CinePro HLS</div>
+              <div class="text-[10px] text-gray-400 mt-0.5">Hardware Encrypted</div>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 text-center hover:border-accent-subtle transition cursor-pointer" onclick="showCdnDetails('cloudinary')">
+              <i class="fa-solid fa-bolt text-sky-400 text-lg mb-1.5"></i>
+              <div class="text-xs font-bold text-white">Cloudinary / Akamai</div>
+              <div class="text-[10px] text-gray-400 mt-0.5">Adaptive Transcoding</div>
+            </div>
           </div>
         </div>
 
-        <!-- Center Play/Pause & Video Canvas Mockup -->
-        <div class="relative flex-1 flex items-center justify-center cursor-pointer" onclick="togglePlayState()">
-          <div id="player-center-btn" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-black/60 border border-white/30 flex items-center justify-center text-white text-2xl sm:text-3xl hover:scale-110 transition shadow-2xl">
-            <i id="player-play-icon" class="fa-solid fa-play ml-1"></i>
+
+        <!-- CARD 2: Double-Engine Monetization -->
+        <div class="bg-surface-850 border border-white/10 rounded-2xl p-5 sm:p-6 shadow-xl relative overflow-hidden group hover:border-white/20 transition">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-9 h-9 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400">
+                <i class="fa-solid fa-crown text-base"></i>
+              </div>
+              <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">Double-Engine Monetization</h3>
+            </div>
+            <span class="bg-pink-500/15 text-pink-400 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-pink-500/30 uppercase tracking-wider">
+              RECURRING REVENUE
+            </span>
           </div>
 
-          <!-- Skip Intro Overlay Pill -->
-          <button id="skip-intro-btn" onclick="skipIntroAction(event)" class="absolute bottom-6 right-6 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/40 text-xs font-bold px-4 py-2 rounded-lg transition shadow-xl hidden">
-            <i class="fa-solid fa-forward-step mr-1.5"></i> Skip Intro
+          <!-- 2 Columns Inside Monetization Card -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+            <!-- Left Engine: VIP Pass -->
+            <div class="bg-surface-800/80 border border-white/10 rounded-xl p-3.5 space-y-1.5">
+              <div class="flex items-center space-x-2 text-xs font-bold text-pink-300">
+                <i class="fa-solid fa-gem text-pink-400"></i>
+                <span>VIP Pass Subscriptions</span>
+              </div>
+              <p class="text-[11px] sm:text-xs text-gray-300 leading-normal">
+                Unlimited 1080p/4K full-catalog streaming, zero advertisements, and exclusive early access to newly dropped episodes and blockbuster premieres.
+              </p>
+            </div>
+
+            <!-- Right Engine: Virtual Coin Economy -->
+            <div class="bg-surface-800/80 border border-white/10 rounded-xl p-3.5 space-y-1.5">
+              <div class="flex items-center space-x-2 text-xs font-bold text-amber-300">
+                <i class="fa-solid fa-coins text-amber-400"></i>
+                <span>Virtual Coin Economy</span>
+              </div>
+              <p class="text-[11px] sm:text-xs text-gray-300 leading-normal">
+                Pay-per-episode unlocking (e.g. 10 coins/ep), daily streak check-in rewards, and instant coin bundle checkouts via Stripe & PayPal.
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- CARD 3: Launch WordPress Admin Simulator Callout Banner -->
+        <div class="bg-gradient-to-r from-surface-850 to-surface-800 border border-accent-subtle rounded-2xl p-5 sm:p-6 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="space-y-1.5 text-center sm:text-left">
+            <div class="flex items-center justify-center sm:justify-start space-x-2 text-white font-bold text-sm sm:text-base">
+              <i class="fa-solid fa-sliders text-accent"></i>
+              <span>Want to test the WordPress Admin Panel?</span>
+            </div>
+            <p class="text-xs text-gray-300 max-w-md">
+              Explore all 8 admin settings tabs, live section builder, TMDB 1-click catalog importer, and server failover routing.
+            </p>
+          </div>
+
+          <button onclick="switchView('admin')" 
+                  class="flex-shrink-0 flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-accent hover:opacity-90 shadow-lg glow-sm transition transform hover:-translate-y-0.5">
+            <span>Launch Admin Simulator</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
           </button>
         </div>
 
-        <!-- Bottom Timeline & Controls -->
-        <div class="space-y-2 z-20 bg-gradient-to-t from-black/80 to-transparent pt-4">
-          <!-- Timeline Slider -->
-          <div class="w-full bg-gray-700/60 h-1.5 rounded-full overflow-hidden cursor-pointer" onclick="seekSimTimeline(event)">
-            <div id="player-progress" class="bg-[#E50914] h-full w-[42%] transition-all duration-200"></div>
-          </div>
-
-          <!-- Bottom Button Row -->
-          <div class="flex items-center justify-between text-white text-xs sm:text-sm pt-1">
-            <div class="flex items-center space-x-3 sm:space-x-4">
-              <button onclick="togglePlayState()" class="hover:text-[#E50914] transition"><i id="btn-play-ctrl" class="fa-solid fa-play"></i></button>
-              <button onclick="rewind10()" class="hover:text-gray-300 transition" title="Rewind 10s"><i class="fa-solid fa-rotate-left"></i></button>
-              <button onclick="forward10()" class="hover:text-gray-300 transition" title="Forward 10s"><i class="fa-solid fa-rotate-right"></i></button>
-              <button onclick="toggleMuteState()" class="hover:text-gray-300 transition"><i id="btn-vol-ctrl" class="fa-solid fa-volume-high"></i></button>
-              <span id="player-timestamp" class="text-gray-400 font-mono text-[11px]">42:15 / 2:19:00</span>
-            </div>
-
-            <div class="flex items-center space-x-3 sm:space-x-4">
-              <!-- Server Switcher -->
-              <select id="player-server-select" onchange="changeServerSim(this.value)" class="bg-black/60 text-xs text-gray-200 border border-white/20 rounded px-2 py-1 outline-none">
-                <option value="cinepro">⚡ Server 1 (CinePro HLS Direct)</option>
-                <option value="vidlink">Server 2 (VidLink 1080p)</option>
-                <option value="autoembed">Server 3 (AutoEmbed)</option>
-                <option value="vidsrc">Server 4 (VidSrc CC)</option>
-              </select>
-
-              <!-- Quality Selector -->
-              <select id="player-quality-select" onchange="changeQualitySim(this.value)" class="bg-black/60 text-xs text-gray-200 border border-white/20 rounded px-2 py-1 outline-none">
-                <option value="4k">👑 4K Ultra HD</option>
-                <option value="1080p" selected>1080p Full HD</option>
-                <option value="720p">720p HD</option>
-                <option value="480p">480p SD</option>
-                <option value="360p">360p Data Saver</option>
-              </select>
-
-              <button onclick="toggleSubtitlesSim()" class="hover:text-[#E50914] transition" title="Subtitles (English)"><i class="fa-solid fa-closed-captioning"></i></button>
-              <button onclick="toggleFullscreenMock()" class="hover:text-gray-300 transition" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
-            </div>
-          </div>
-        </div>
-
       </div>
-    </section>
 
-    <!-- Curated Netflix Carousels Simulation -->
-    <section class="space-y-8">
-      <div>
-        <div class="flex items-center justify-between mb-3">
-          <h3 class="text-lg sm:text-xl font-black text-white flex items-center gap-2">
-            <span>Trending Movies on iFlix</span>
-            <span class="text-xs text-[#E50914] font-bold cursor-pointer hover:underline">Explore All &rsaquo;</span>
-          </h3>
-        </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-          <!-- Card 1 -->
-          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('Fight Club', 'movie')">
-            <img src="https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg" alt="Fight Club" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
-              <span class="text-xs font-bold text-white">Fight Club</span>
-              <span class="text-[10px] text-green-400 font-semibold">★ 8.4 • 1999</span>
-            </div>
-          </div>
-          <!-- Card 2 -->
-          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('Inception', 'movie')">
-            <img src="https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg" alt="Inception" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
-              <span class="text-xs font-bold text-white">Inception</span>
-              <span class="text-[10px] text-green-400 font-semibold">★ 8.8 • 2010</span>
-            </div>
-          </div>
-          <!-- Card 3 -->
-          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('Interstellar', 'movie')">
-            <img src="https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg" alt="Interstellar" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
-              <span class="text-xs font-bold text-white">Interstellar</span>
-              <span class="text-[10px] text-green-400 font-semibold">★ 8.6 • 2014</span>
-            </div>
-          </div>
-          <!-- Card 4 -->
-          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('The Dark Knight', 'movie')">
-            <img src="https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg" alt="The Dark Knight" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
-              <span class="text-xs font-bold text-white">The Dark Knight</span>
-              <span class="text-[10px] text-green-400 font-semibold">★ 9.0 • 2008</span>
-            </div>
-          </div>
-          <!-- Card 5 -->
-          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('Pulp Fiction', 'movie')">
-            <img src="https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg" alt="Pulp Fiction" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
-              <span class="text-xs font-bold text-white">Pulp Fiction</span>
-              <span class="text-[10px] text-green-400 font-semibold">★ 8.9 • 1994</span>
-            </div>
-          </div>
-          <!-- Card 6 -->
-          <div class="group relative rounded-lg overflow-hidden bg-netflix-card border border-white/10 hover:border-[#E50914] transition-all duration-300 cursor-pointer shadow-lg hover:scale-105" onclick="launchInteractivePlayer('Gladiator', 'movie')">
-            <img src="https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg" alt="Gladiator" class="w-full h-64 object-cover" onerror="this.src='assets/preview.png'">
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex flex-col justify-end">
-              <span class="text-xs font-bold text-white">Gladiator</span>
-              <span class="text-[10px] text-green-400 font-semibold">★ 8.5 • 2000</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
 
   </main>
+
 
   <!-- ================= VIEW 2: WORDPRESS ADMIN STUDIO SIMULATOR ================= -->
-  <main id="view-admin" class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-6 hidden">
+  <section id="view-admin" class="hidden flex-1 max-w-7xl mx-auto px-4 sm:px-8 py-8 w-full transition-opacity duration-300">
     
-    <!-- Admin Header -->
-    <div class="bg-gradient-to-r from-[#181818] via-[#222222] to-[#2b1113] p-6 rounded-2xl border border-white/10 shadow-2xl mb-8 flex flex-wrap items-center justify-between gap-4">
-      <div>
-        <div class="inline-flex items-center gap-2 bg-[#E50914] text-white text-[10px] font-bold px-2 py-0.5 rounded tracking-widest uppercase mb-1.5">
-          WORDPRESS ADMIN SUITE
+    <!-- Admin Top Header Banner -->
+    <div class="bg-surface-850 border border-white/10 rounded-2xl p-4 sm:p-6 mb-6 shadow-xl flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-accent/20 border border-accent-subtle flex items-center justify-center text-accent text-lg">
+          <i class="fa-brands fa-wordpress"></i>
         </div>
-        <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
-          <span>iFlix Stream Control Hub</span>
-        </h2>
-        <p class="text-xs sm:text-sm text-gray-400">Manage video sources, test TMDB transients, configure CinePro HLS, and govern paywall monetization.</p>
-      </div>
-
-      <div class="flex items-center gap-2.5">
-        <button onclick="flushCacheSim()" class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-3.5 py-2 rounded-lg border border-white/20 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-broom text-xs"></i>
-          <span>Flush TMDB Cache</span>
-        </button>
-        <button onclick="seedDefaultsSim()" class="bg-[#E50914] hover:bg-[#b80710] text-white text-xs font-bold px-4 py-2 rounded-lg transition flex items-center gap-1.5 shadow-md">
-          <i class="fa-solid fa-seedling text-xs"></i>
-          <span>Seed Video Sources</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Admin Sub-Navigation Tabs -->
-    <div class="flex items-center border-b border-white/10 mb-6 space-x-2 overflow-x-auto pb-2">
-      <button id="admin-tab-btn-dash" onclick="switchAdminTab('dash')" class="px-4 py-2 text-xs font-bold rounded-t-lg bg-[#E50914] text-white transition">Dashboard & Health</button>
-      <button id="admin-tab-btn-sources" onclick="switchAdminTab('sources')" class="px-4 py-2 text-xs font-bold rounded-t-lg text-gray-400 hover:text-white transition">Video Sources CPT</button>
-      <button id="admin-tab-btn-sections" onclick="switchAdminTab('sections')" class="px-4 py-2 text-xs font-bold rounded-t-lg text-gray-400 hover:text-white transition">Section Builder</button>
-      <button id="admin-tab-btn-tmdb" onclick="switchAdminTab('tmdb')" class="px-4 py-2 text-xs font-bold rounded-t-lg text-gray-400 hover:text-white transition">TMDB API Settings</button>
-      <button id="admin-tab-btn-paywall" onclick="switchAdminTab('paywall')" class="px-4 py-2 text-xs font-bold rounded-t-lg text-gray-400 hover:text-white transition">Subscription & Paywall</button>
-    </div>
-
-    <!-- TAB 1: DASHBOARD & HEALTH -->
-    <div id="admin-tab-dash" class="space-y-6">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Metric 1 -->
-        <div class="bg-[#181818] p-5 rounded-xl border border-white/10">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">TMDB API Status</span>
-          <div class="flex items-center justify-between mt-2">
-            <span class="text-xl font-black text-green-400 flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-sm"></i> Connected</span>
-            <span class="text-xs bg-green-500/20 text-green-300 font-mono px-2 py-0.5 rounded">82ms Latency</span>
-          </div>
-        </div>
-        <!-- Metric 2 -->
-        <div class="bg-[#181818] p-5 rounded-xl border border-white/10">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Cached Titles</span>
-          <div class="flex items-center justify-between mt-2">
-            <span id="cache-count" class="text-2xl font-black text-white">418</span>
-            <span class="text-xs bg-blue-500/20 text-blue-300 font-bold px-2 py-0.5 rounded">24h Transients</span>
-          </div>
-        </div>
-        <!-- Metric 3 -->
-        <div class="bg-[#181818] p-5 rounded-xl border border-white/10">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Active Video Sources</span>
-          <div class="flex items-center justify-between mt-2">
-            <span class="text-2xl font-black text-white">8 Sources</span>
-            <span class="text-xs bg-purple-500/20 text-purple-300 font-bold px-2 py-0.5 rounded">Multi-Server</span>
-          </div>
-        </div>
-        <!-- Metric 4 -->
-        <div class="bg-[#181818] p-5 rounded-xl border border-white/10">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Direct CinePro HLS</span>
-          <div class="flex items-center justify-between mt-2">
-            <span class="text-xl font-black text-amber-400 flex items-center gap-1.5"><i class="fa-solid fa-bolt text-sm"></i> Active</span>
-            <span class="text-xs bg-amber-500/20 text-amber-300 font-mono px-2 py-0.5 rounded">4K Ready</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 2: VIDEO SOURCES CPT -->
-    <div id="admin-tab-sources" class="space-y-4 hidden">
-      <div class="bg-[#181818] rounded-xl border border-white/10 overflow-hidden">
-        <table class="w-full text-left text-xs sm:text-sm">
-          <thead class="bg-black/60 text-gray-400 uppercase text-[11px] font-bold border-b border-white/10">
-            <tr>
-              <th class="p-3.5">Source Name</th>
-              <th class="p-3.5">Type</th>
-              <th class="p-3.5">TMDB Scope</th>
-              <th class="p-3.5">Configured Servers</th>
-              <th class="p-3.5 text-center">Status</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-white/10">
-            <tr>
-              <td class="p-3.5 font-bold text-white">Global Movie Default Servers</td>
-              <td class="p-3.5"><span class="bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded text-xs font-bold">Movie</span></td>
-              <td class="p-3.5 text-gray-300">Global Default (All Titles)</td>
-              <td class="p-3.5 text-xs text-gray-400">VidLink HD, AutoEmbed, VidSrc CC, MultiEmbed</td>
-              <td class="p-3.5 text-center"><span class="bg-green-500/20 text-green-400 px-2.5 py-1 rounded-full text-xs font-bold">ACTIVE</span></td>
-            </tr>
-            <tr>
-              <td class="p-3.5 font-bold text-white">Global TV Series Default Servers</td>
-              <td class="p-3.5"><span class="bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded text-xs font-bold">TV</span></td>
-              <td class="p-3.5 text-gray-300">Global Default (All Episodes)</td>
-              <td class="p-3.5 text-xs text-gray-400">VidLink TV, AutoEmbed TV, 2Embed</td>
-              <td class="p-3.5 text-center"><span class="bg-green-500/20 text-green-400 px-2.5 py-1 rounded-full text-xs font-bold">ACTIVE</span></td>
-            </tr>
-            <tr>
-              <td class="p-3.5 font-bold text-white">Fight Club (Dedicated 4K CDN)</td>
-              <td class="p-3.5"><span class="bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded text-xs font-bold">Movie</span></td>
-              <td class="p-3.5 text-amber-400 font-bold">TMDB #550</td>
-              <td class="p-3.5 text-xs text-gray-400">Cloudflare R2 Direct HLS Master</td>
-              <td class="p-3.5 text-center"><span class="bg-green-500/20 text-green-400 px-2.5 py-1 rounded-full text-xs font-bold">ACTIVE</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- TAB 3: SECTION BUILDER -->
-    <div id="admin-tab-sections" class="space-y-4 hidden">
-      <div class="bg-[#181818] p-6 rounded-xl border border-white/10 space-y-4">
-        <h3 class="text-base font-bold text-white">Homepage Row Ordering (Drag & Drop)</h3>
-        <div class="space-y-2">
-          <div class="bg-black/40 p-3.5 rounded-lg border border-white/10 flex items-center justify-between">
-            <span class="font-bold text-sm flex items-center gap-3"><i class="fa-solid fa-grip-vertical text-gray-500"></i> 1. Billboard Slider (Featured Trending Releases)</span>
-            <span class="text-xs bg-red-500/20 text-red-300 font-bold px-2 py-0.5 rounded">Dynamic Hero</span>
-          </div>
-          <div class="bg-black/40 p-3.5 rounded-lg border border-white/10 flex items-center justify-between">
-            <span class="font-bold text-sm flex items-center gap-3"><i class="fa-solid fa-grip-vertical text-gray-500"></i> 2. Top 10 Ranked Movies in the United States</span>
-            <span class="text-xs bg-blue-500/20 text-blue-300 font-bold px-2 py-0.5 rounded">Ranked Numbers (#1 - #10)</span>
-          </div>
-          <div class="bg-black/40 p-3.5 rounded-lg border border-white/10 flex items-center justify-between">
-            <span class="font-bold text-sm flex items-center gap-3"><i class="fa-solid fa-grip-vertical text-gray-500"></i> 3. Popular on iFlix (TMDB Discover)</span>
-            <span class="text-xs bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded">Landscape 16:9</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 4: TMDB SETTINGS -->
-    <div id="admin-tab-tmdb" class="space-y-4 hidden">
-      <div class="bg-[#181818] p-6 rounded-xl border border-white/10 max-w-2xl space-y-4">
         <div>
-          <label class="block text-xs font-bold text-gray-400 mb-1">TMDB API Key (v3 auth)</label>
-          <input type="text" value="4f8b2c1e9a0d3f7e6b5a4c3d2e1f0a9b" class="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white font-mono" readonly>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-bold text-gray-400 mb-1">Default Language</label>
-            <input type="text" value="en-US" class="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white" readonly>
+          <div class="flex items-center space-x-2">
+            <h2 class="text-lg sm:text-xl font-black text-white">iFlix Stream Admin Studio</h2>
+            <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-extrabold px-2 py-0.5 rounded border border-emerald-500/30">
+              ● All Systems Operational
+            </span>
           </div>
-          <div>
-            <label class="block text-xs font-bold text-gray-400 mb-1">Cache Lifetime (Hours)</label>
-            <input type="text" value="24" class="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white" readonly>
-          </div>
-        </div>
-        <button class="bg-green-600 text-white font-bold text-xs px-4 py-2 rounded-lg"><i class="fa-solid fa-check mr-1.5"></i> Validated Connection</button>
-      </div>
-    </div>
-
-    <!-- TAB 5: SUBSCRIPTION & PAYWALL -->
-    <div id="admin-tab-paywall" class="space-y-4 hidden">
-      <div class="bg-[#181818] p-6 rounded-xl border border-white/10 max-w-3xl space-y-6">
-        <div class="flex items-center justify-between pb-4 border-b border-white/10">
-          <div>
-            <h4 class="font-bold text-white text-base">Enable Platform Paywall</h4>
-            <p class="text-xs text-gray-400">Requires viewers to hold an active subscription tier to stream video content.</p>
-          </div>
-          <span class="bg-[#E50914] text-white font-bold text-xs px-3 py-1 rounded-full">ACTIVE</span>
-        </div>
-
-        <div class="grid grid-cols-3 gap-4">
-          <div class="bg-black/40 p-4 rounded-xl border border-white/10 text-center">
-            <span class="text-xs font-bold text-gray-400 uppercase">Basic Plan</span>
-            <div class="text-2xl font-black text-white mt-1">$9.99/mo</div>
-            <span class="text-[11px] text-gray-400 block mt-1">Max 720p HD • 2 Profiles</span>
-          </div>
-          <div class="bg-black/40 p-4 rounded-xl border border-white/10 text-center">
-            <span class="text-xs font-bold text-gray-400 uppercase">Standard Plan</span>
-            <div class="text-2xl font-black text-white mt-1">$15.49/mo</div>
-            <span class="text-[11px] text-gray-400 block mt-1">Max 1080p FHD • 3 Profiles</span>
-          </div>
-          <div class="bg-black/40 p-4 rounded-xl border border-[#E50914] text-center bg-red-950/20">
-            <span class="text-xs font-bold text-red-400 uppercase">Premium 4K</span>
-            <div class="text-2xl font-black text-white mt-1">$19.99/mo</div>
-            <span class="text-[11px] text-gray-300 block mt-1">Max 4K HDR • 6 Profiles</span>
-          </div>
+          <p class="text-xs text-gray-400">Interactive live backend simulator for theme configuration & content management</p>
         </div>
       </div>
-    </div>
 
-  </main>
-
-  <!-- ================= MODALS & POPUPS ================= -->
-  
-  <!-- Modal 1: Details Modal -->
-  <div id="modal-details" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
-    <div class="bg-[#181818] border border-white/20 rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl space-y-4">
-      <button onclick="closeDetailsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
-      <span class="text-[#E50914] text-xs font-bold uppercase tracking-widest">iFLIX PREVIEW</span>
-      <h3 id="modal-d-title" class="text-2xl font-black text-white">Title</h3>
-      <div id="modal-d-meta" class="flex items-center gap-3 text-xs text-gray-300 font-bold"></div>
-      <p id="modal-d-desc" class="text-sm text-gray-300 leading-relaxed">
-        Experience seamless streaming with zero buffering, multi-audio selection, and 4K Ultra HD playback on iFlix Stream.
-      </p>
-      <div class="pt-4 flex gap-3">
-        <button onclick="launchInteractivePlayer('Title', 'movie'); closeDetailsModal();" class="bg-[#E50914] hover:bg-[#b80710] text-white font-bold text-sm px-6 py-2.5 rounded-lg flex items-center gap-2">
-          <i class="fa-solid fa-play"></i> Watch Now
+      <div class="flex items-center space-x-3">
+        <button onclick="switchView('landing')" class="flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs font-bold text-gray-300 bg-surface-800 hover:text-white hover:bg-surface-700 border border-white/15 transition">
+          <i class="fa-solid fa-arrow-left text-xs"></i>
+          <span>Back to App Showcase</span>
         </button>
-        <button onclick="closeDetailsModal()" class="bg-white/10 hover:bg-white/20 text-white font-bold text-sm px-4 py-2.5 rounded-lg">Close</button>
+
+        <a href="https://abefilm.com" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 shadow transition">
+          <i class="fa-solid fa-globe text-xs"></i>
+          <span>Live Demo Site</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+        </a>
       </div>
     </div>
-  </div>
 
-  <!-- Modal 2: Paywall Subscription Prompt Modal -->
-  <div id="modal-paywall" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
-    <div class="bg-[#181818] border border-white/20 rounded-2xl max-w-md w-full p-6 sm:p-8 text-center relative shadow-2xl space-y-4">
-      <button onclick="closePaywallModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
-      <div class="w-14 h-14 rounded-full bg-red-500/20 border border-red-500 text-red-500 flex items-center justify-center text-2xl mx-auto mb-2">
-        <i class="fa-solid fa-lock"></i>
-      </div>
-      <h3 class="text-xl font-black text-white">Subscription Required</h3>
-      <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
-        A streaming subscription is required to unlock unlimited streaming in 4K Ultra HD and save titles to your personal My List.
-      </p>
-      <div class="pt-2 space-y-2">
-        <button onclick="alert('Demo: Redirecting to plan selection!'); closePaywallModal();" class="w-full bg-[#E50914] hover:bg-[#b80710] text-white font-black text-sm py-3 rounded-lg shadow-lg">
-          View Plans & Pricing
+
+    <!-- Admin Studio Layout: Sidebar Tabs + Active Panel Content -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- Left Admin Sidebar Menu -->
+      <div class="lg:col-span-3 bg-surface-850 border border-white/10 rounded-2xl p-3 shadow-xl space-y-1">
+        
+        <div class="px-3 py-2 text-[10px] font-black uppercase tracking-wider text-gray-400">CORE MODULES</div>
+
+        <button onclick="switchAdminTab('dashboard')" id="tab-btn-dashboard" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold transition bg-accent text-white shadow">
+          <i class="fa-solid fa-chart-line text-sm w-4"></i>
+          <span>Dashboard & Health</span>
         </button>
-        <button onclick="closePaywallModal()" class="w-full bg-transparent hover:bg-white/10 text-gray-400 text-xs py-2 rounded-lg">
-          Maybe Later
+
+        <button onclick="switchAdminTab('video-sources')" id="tab-btn-video-sources" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition">
+          <i class="fa-solid fa-server text-sm w-4"></i>
+          <span>Video Sources (CPT)</span>
         </button>
+
+        <button onclick="switchAdminTab('section-builder')" id="tab-btn-section-builder" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition">
+          <i class="fa-solid fa-cubes text-sm w-4"></i>
+          <span>Section Builder</span>
+        </button>
+
+        <button onclick="switchAdminTab('tmdb')" id="tab-btn-tmdb" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition">
+          <i class="fa-solid fa-film text-sm w-4"></i>
+          <span>TMDB Importer</span>
+        </button>
+
+        <div class="px-3 pt-3 pb-1 text-[10px] font-black uppercase tracking-wider text-gray-400">ENGINE & REVENUE</div>
+
+        <button onclick="switchAdminTab('cinepro')" id="tab-btn-cinepro" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition">
+          <i class="fa-solid fa-bolt text-sm w-4"></i>
+          <span>CinePro & Cloudflare R2</span>
+        </button>
+
+        <button onclick="switchAdminTab('paywall')" id="tab-btn-paywall" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition">
+          <i class="fa-solid fa-crown text-sm w-4"></i>
+          <span>Subscriptions & Coins</span>
+        </button>
+
+        <button onclick="switchAdminTab('notifications')" id="tab-btn-notifications" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition">
+          <i class="fa-solid fa-bell text-sm w-4"></i>
+          <span>Push Notifications</span>
+        </button>
+
+        <button onclick="switchAdminTab('license')" id="tab-btn-license" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition">
+          <i class="fa-solid fa-key text-sm w-4"></i>
+          <span>Licensing & Security</span>
+        </button>
+
       </div>
+
+
+      <!-- Right Admin Active Tab Content -->
+      <div class="lg:col-span-9 bg-surface-850 border border-white/10 rounded-2xl p-6 shadow-xl min-h-[560px]">
+        
+        <!-- ================= TAB 1: DASHBOARD & HEALTH ================= -->
+        <div id="admin-panel-dashboard" class="space-y-6">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <div>
+              <h3 class="text-base font-bold text-white">Streaming Platform Overview</h3>
+              <p class="text-xs text-gray-400">Live operational telemetry and traffic health</p>
+            </div>
+            <span class="text-xs bg-surface-800 text-gray-300 px-3 py-1 rounded-lg border border-white/10">WordPress 6.4 • PHP 8.2</span>
+          </div>
+
+          <!-- KPI Metric Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-4">
+              <div class="text-[11px] text-gray-400 font-medium">Active VIP Subscribers</div>
+              <div class="text-xl sm:text-2xl font-black text-white mt-1">14,290</div>
+              <div class="text-[10px] text-emerald-400 font-semibold mt-1 flex items-center">
+                <i class="fa-solid fa-arrow-trend-up mr-1"></i> +18.4% this month
+              </div>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-4">
+              <div class="text-[11px] text-gray-400 font-medium">CDN Bandwidth Saved</div>
+              <div class="text-xl sm:text-2xl font-black text-emerald-400 mt-1">$4,820</div>
+              <div class="text-[10px] text-gray-400 font-semibold mt-1">via Cloudflare R2</div>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-4">
+              <div class="text-[11px] text-gray-400 font-medium">Stream Uptime</div>
+              <div class="text-xl sm:text-2xl font-black text-white mt-1">99.98%</div>
+              <div class="text-[10px] text-emerald-400 font-semibold mt-1">4 Active Failover Nodes</div>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-4">
+              <div class="text-[11px] text-gray-400 font-medium">Total Titles Indexed</div>
+              <div class="text-xl sm:text-2xl font-black text-accent mt-1">8,450</div>
+              <div class="text-[10px] text-gray-400 font-semibold mt-1">Auto-synced TMDB</div>
+            </div>
+          </div>
+
+          <!-- Quick Actions & Server Status -->
+          <div class="bg-surface-800 border border-white/10 rounded-xl p-4">
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Live Streaming Server Health</h4>
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between text-xs bg-surface-750 px-3 py-2 rounded-lg border border-white/5">
+                <div class="flex items-center space-x-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span class="font-bold text-white">Server 1 (CinePro HLS Direct)</span>
+                  <span class="text-[10px] text-gray-400">sgp-node.cinepro.io</span>
+                </div>
+                <div class="flex items-center space-x-3 text-[11px]">
+                  <span class="text-gray-400">Latency: <strong class="text-emerald-400">18ms</strong></span>
+                  <span class="text-emerald-400 font-bold bg-emerald-500/15 px-2 py-0.5 rounded">Operational</span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-xs bg-surface-750 px-3 py-2 rounded-lg border border-white/5">
+                <div class="flex items-center space-x-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span class="font-bold text-white">Server 2 (Cloudflare R2 Bucket)</span>
+                  <span class="text-[10px] text-gray-400">r2.cdn.iflix.io</span>
+                </div>
+                <div class="flex items-center space-x-3 text-[11px]">
+                  <span class="text-gray-400">Latency: <strong class="text-emerald-400">24ms</strong></span>
+                  <span class="text-emerald-400 font-bold bg-emerald-500/15 px-2 py-0.5 rounded">Operational</span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-xs bg-surface-750 px-3 py-2 rounded-lg border border-white/5">
+                <div class="flex items-center space-x-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span class="font-bold text-white">Server 3 (Akamai Global Edge)</span>
+                  <span class="text-[10px] text-gray-400">akamai-hls.iflix.io</span>
+                </div>
+                <div class="flex items-center space-x-3 text-[11px]">
+                  <span class="text-gray-400">Latency: <strong class="text-emerald-400">32ms</strong></span>
+                  <span class="text-emerald-400 font-bold bg-emerald-500/15 px-2 py-0.5 rounded">Operational</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ================= TAB 2: VIDEO SOURCES CPT ================= -->
+        <div id="admin-panel-video-sources" class="hidden space-y-6">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <div>
+              <h3 class="text-base font-bold text-white">Multi-Server Video Sources Manager</h3>
+              <p class="text-xs text-gray-400">Configure auto-failover order, HLS stream URLs, and VIP quality gates</p>
+            </div>
+            <button onclick="triggerAdminAlert('New stream source row added!')" class="px-3 py-1.5 rounded-lg bg-accent text-white text-xs font-bold shadow hover:opacity-90">
+              <i class="fa-solid fa-plus mr-1"></i> Add Source
+            </button>
+          </div>
+
+          <div class="space-y-3">
+            <!-- Row 1 -->
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center space-x-3">
+                <span class="w-6 h-6 rounded bg-accent text-white text-xs font-black flex items-center justify-center">1</span>
+                <div>
+                  <div class="text-xs font-bold text-white">CinePro HLS Direct (Primary)</div>
+                  <div class="text-[10px] text-gray-400 font-mono">https://stream.cinepro.io/live/hls/master.m3u8</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-3">
+                <span class="text-[10px] bg-emerald-500/15 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-500/30">Auto Failover #1</span>
+                <span class="text-[10px] bg-surface-700 text-gray-300 px-2 py-0.5 rounded">All Tiers (Free/VIP)</span>
+              </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center space-x-3">
+                <span class="w-6 h-6 rounded bg-surface-700 text-gray-300 text-xs font-black flex items-center justify-center">2</span>
+                <div>
+                  <div class="text-xs font-bold text-white">Cloudflare R2 Encrypted Bucket (Backup A)</div>
+                  <div class="text-[10px] text-gray-400 font-mono">https://r2-vod.stream.net/dramas/ep01-enc.mp4</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-3">
+                <span class="text-[10px] bg-blue-500/15 text-blue-400 font-bold px-2 py-0.5 rounded border border-blue-500/30">Zero Egress</span>
+                <span class="text-[10px] bg-amber-500/15 text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-500/30"><i class="fa-solid fa-crown mr-1"></i>VIP 4K Only</span>
+              </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center space-x-3">
+                <span class="w-6 h-6 rounded bg-surface-700 text-gray-300 text-xs font-black flex items-center justify-center">3</span>
+                <div>
+                  <div class="text-xs font-bold text-white">Akamai / BunnyCDN Global Edge (Backup B)</div>
+                  <div class="text-[10px] text-gray-400 font-mono">https://edge.akamai.cdn/master.mpd</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-3">
+                <span class="text-[10px] bg-gray-600/30 text-gray-400 font-bold px-2 py-0.5 rounded">Standby</span>
+                <span class="text-[10px] bg-surface-700 text-gray-300 px-2 py-0.5 rounded">720p / 1080p</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ================= TAB 3: SECTION BUILDER ================= -->
+        <div id="admin-panel-section-builder" class="hidden space-y-6">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <div>
+              <h3 class="text-base font-bold text-white">Homepage Section Builder</h3>
+              <p class="text-xs text-gray-400">Reorder rows, adjust query taxonomy, and set display cards</p>
+            </div>
+            <button onclick="triggerAdminAlert('Layout configuration saved successfully!')" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow">
+              <i class="fa-solid fa-check mr-1"></i> Save Layout
+            </button>
+          </div>
+
+          <div class="space-y-2.5">
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-grip-vertical text-gray-500 cursor-grab"></i>
+                <div>
+                  <div class="text-xs font-bold text-white">Hero Billboard Carousel</div>
+                  <div class="text-[10px] text-gray-400">Featured Releases • Auto-rotate 5s • Backdrop overlay</div>
+                </div>
+              </div>
+              <span class="text-[10px] bg-emerald-500/15 text-emerald-400 font-bold px-2 py-0.5 rounded">Visible</span>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-grip-vertical text-gray-500 cursor-grab"></i>
+                <div>
+                  <div class="text-xs font-bold text-white">Continue Watching (Firebase Sync)</div>
+                  <div class="text-[10px] text-gray-400">Cross-device resume playback bar • Logged-in users only</div>
+                </div>
+              </div>
+              <span class="text-[10px] bg-emerald-500/15 text-emerald-400 font-bold px-2 py-0.5 rounded">Visible</span>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-grip-vertical text-gray-500 cursor-grab"></i>
+                <div>
+                  <div class="text-xs font-bold text-white">Top 10 Dramas Today</div>
+                  <div class="text-[10px] text-gray-400">Numbered poster cards 1-10 • Algorithmic view sorting</div>
+                </div>
+              </div>
+              <span class="text-[10px] bg-emerald-500/15 text-emerald-400 font-bold px-2 py-0.5 rounded">Visible</span>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-3 flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-grip-vertical text-gray-500 cursor-grab"></i>
+                <div>
+                  <div class="text-xs font-bold text-white">VIP Exclusive 4K Catalog</div>
+                  <div class="text-[10px] text-gray-400">Locked with crown badge • Direct paywall modal trigger</div>
+                </div>
+              </div>
+              <span class="text-[10px] bg-amber-500/15 text-amber-400 font-bold px-2 py-0.5 rounded">VIP Gated</span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ================= TAB 4: TMDB IMPORTER ================= -->
+        <div id="admin-panel-tmdb" class="hidden space-y-6">
+          <div class="border-b border-white/10 pb-4">
+            <h3 class="text-base font-bold text-white">TMDB 1-Click Metadata Importer</h3>
+            <p class="text-xs text-gray-400">Search TMDB or enter ID to auto-populate titles, cast, posters, and synopsis</p>
+          </div>
+
+          <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-3">
+            <label class="block text-xs font-bold text-gray-300">TMDB Movie / TV ID or Title</label>
+            <div class="flex gap-2">
+              <input id="tmdb-input" type="text" value="550" placeholder="e.g. 550 for Fight Club or 27205 for Inception" 
+                     class="flex-1 bg-surface-900 border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-accent">
+              <button onclick="simulateTmdbFetch()" class="px-4 py-2 bg-accent hover:opacity-90 text-white text-xs font-bold rounded-lg shadow">
+                <i class="fa-solid fa-cloud-arrow-down mr-1"></i> Fetch Metadata
+              </button>
+            </div>
+          </div>
+
+          <!-- TMDB Live Preview Card -->
+          <div id="tmdb-result-box" class="bg-surface-800 border border-white/10 rounded-xl p-4 flex gap-4 items-center">
+            <img id="tmdb-poster" src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=300&auto=format&fit=crop&q=80" class="w-20 rounded-lg shadow border border-white/10 object-cover aspect-[2/3]">
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2">
+                <span id="tmdb-title" class="text-sm font-bold text-white">Fight Club (1999)</span>
+                <span class="text-[10px] bg-amber-500/20 text-amber-400 font-bold px-1.5 py-0.5 rounded">TMDB 8.8</span>
+              </div>
+              <p id="tmdb-overview" class="text-xs text-gray-400 line-clamp-2">An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.</p>
+              <div class="text-[10px] text-gray-500">Genres: Drama • Action • Thriller | Status: Ready for 1-Click Import</div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ================= TAB 5: CINEPRO & R2 ================= -->
+        <div id="admin-panel-cinepro" class="hidden space-y-6">
+          <div class="border-b border-white/10 pb-4">
+            <h3 class="text-base font-bold text-white">CinePro Streaming Engine & Cloudflare R2</h3>
+            <p class="text-xs text-gray-400">Configure zero-egress bucket credentials and HLS DRM encryption ladders</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-2">
+              <label class="block text-xs font-bold text-white">Cloudflare R2 Bucket Name</label>
+              <input type="text" value="vod-cluster-prod" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-mono">
+              <span class="text-[10px] text-gray-400">Connected to S3 compatible endpoint with $0 egress bandwidth fees</span>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-2">
+              <label class="block text-xs font-bold text-white">CinePro Hardware DRM Key</label>
+              <input type="password" value="cp_live_sec_994821a8f9024c" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-mono">
+              <span class="text-[10px] text-gray-400">Protects HLS segments against hotlinking and unauthorized scraping</span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ================= TAB 6: PAYWALL & COINS ================= -->
+        <div id="admin-panel-paywall" class="hidden space-y-6">
+          <div class="border-b border-white/10 pb-4">
+            <h3 class="text-base font-bold text-white">Subscriptions & Virtual Coin Economy</h3>
+            <p class="text-xs text-gray-400">Set membership pricing, coin unlocking exchange rates, and preview limits</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-2">
+              <div class="text-xs font-bold text-white">VIP Monthly Pass</div>
+              <input type="text" value="$9.99 / mo" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-bold">
+              <p class="text-[10px] text-gray-400">Unlimited 4K streaming & zero ads</p>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-2">
+              <div class="text-xs font-bold text-white">VIP Annual Pass</div>
+              <input type="text" value="$79.99 / yr" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-bold">
+              <p class="text-[10px] text-gray-400">Save 33% • Highest conversion tier</p>
+            </div>
+
+            <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-2">
+              <div class="text-xs font-bold text-white">Cost per Episode / Title</div>
+              <input type="text" value="10 Coins" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-bold">
+              <p class="text-[10px] text-gray-400">Pay-as-you-go micromonetization</p>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ================= TAB 7: NOTIFICATIONS ================= -->
+        <div id="admin-panel-notifications" class="hidden space-y-6">
+          <div class="border-b border-white/10 pb-4">
+            <h3 class="text-base font-bold text-white">Push Notifications & Alerts</h3>
+            <p class="text-xs text-gray-400">Send web push & PWA alerts for new drama drops and promotional discounts</p>
+          </div>
+
+          <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-3">
+            <div>
+              <label class="block text-xs font-bold text-white mb-1">Notification Title</label>
+              <input type="text" value="🔥 New Episode Dropped: Guardian of the Forbidden Realm Ep. 17" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-white mb-1">Body Message</label>
+              <textarea rows="2" class="w-full bg-surface-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white">Watch in 4K HDR now! VIP subscribers get early instant access.</textarea>
+            </div>
+            <button onclick="triggerAdminAlert('Broadcast notification sent to 24,910 devices!')" class="px-4 py-2 bg-accent hover:opacity-90 text-white text-xs font-bold rounded-lg shadow">
+              <i class="fa-solid fa-paper-plane mr-1"></i> Send Broadcast Alert
+            </button>
+          </div>
+        </div>
+
+
+        <!-- ================= TAB 8: LICENSE & SECURITY ================= -->
+        <div id="admin-panel-license" class="hidden space-y-6">
+          <div class="border-b border-white/10 pb-4">
+            <h3 class="text-base font-bold text-white">Theme License & Domain Binding</h3>
+            <p class="text-xs text-gray-400">Manage buyer licensing and anti-piracy activation keys</p>
+          </div>
+
+          <div class="bg-surface-800 border border-white/10 rounded-xl p-4 space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs font-bold text-white">Active License Status</div>
+                <div class="text-[10px] text-gray-400">Domain bound to: <strong class="text-white">abefilm.com</strong></div>
+              </div>
+              <span class="bg-emerald-500/15 text-emerald-400 text-xs font-extrabold px-3 py-1 rounded-full border border-emerald-500/30">
+                ACTIVE LIFETIME LICENSE
+              </span>
+            </div>
+            <div class="text-[11px] font-mono bg-surface-900 px-3 py-2 rounded-lg text-gray-300 border border-white/10">
+              IFLX-ENT-8849-2910-PRO-ACTIVE
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
-  </div>
 
-  <!-- Modal 3: Parental PIN Verification Modal -->
-  <div id="modal-pin" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
-    <div class="bg-[#181818] border border-white/20 rounded-2xl max-w-sm w-full p-6 text-center relative shadow-2xl space-y-4">
-      <button onclick="closePinModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
-      <div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500 text-amber-500 flex items-center justify-center text-xl mx-auto">
-        <i class="fa-solid fa-key"></i>
+  </section>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-white/10 bg-[#0c0d12] py-8 px-4 sm:px-8 mt-auto">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      
+      <!-- Left Info -->
+      <div class="flex items-center space-x-2">
+        <div class="w-5 h-5 rounded bg-accent flex items-center justify-center text-white text-[10px] font-black">
+          <i class="fa-solid fa-play text-[8px]"></i>
+        </div>
+        <span class="font-bold text-white">iFlix Stream Platform</span>
+        <span>•</span>
+        <span>Enterprise Video On-Demand WordPress Theme</span>
       </div>
-      <h3 class="text-lg font-black text-white">Parental PIN Lock</h3>
-      <p class="text-xs text-gray-300">Enter your 4-digit PIN to switch back to adult profiles.</p>
-      <div class="flex justify-center gap-2 py-2">
-        <input type="password" maxlength="1" class="w-10 h-12 bg-black/60 border border-white/20 text-center text-xl font-mono text-white rounded-lg outline-none focus:border-[#E50914]" value="1">
-        <input type="password" maxlength="1" class="w-10 h-12 bg-black/60 border border-white/20 text-center text-xl font-mono text-white rounded-lg outline-none focus:border-[#E50914]" value="2">
-        <input type="password" maxlength="1" class="w-10 h-12 bg-black/60 border border-white/20 text-center text-xl font-mono text-white rounded-lg outline-none focus:border-[#E50914]" value="3">
-        <input type="password" maxlength="1" class="w-10 h-12 bg-black/60 border border-white/20 text-center text-xl font-mono text-white rounded-lg outline-none focus:border-[#E50914]" value="4">
+
+      <!-- Right Docs & Repo Links -->
+      <div class="flex flex-wrap items-center space-x-4 text-xs">
+        <a href="docs/user/README.md" class="hover:text-white transition">User Guide</a>
+        <a href="docs/admin/README.md" class="hover:text-white transition">Admin Guide</a>
+        <a href="docs/setup/README.md" class="hover:text-white transition">Configuration</a>
+        <a href="https://github.com/arielskie/iFlix" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline font-bold transition">GitHub Repository</a>
       </div>
-      <button onclick="alert('PIN Verified! Switched to Primary Adult Profile.'); closePinModal();" class="w-full bg-[#E50914] hover:bg-[#b80710] text-white font-bold text-xs py-2.5 rounded-lg">
-        Unlock Profile
-      </button>
+
     </div>
-  </div>
+  </footer>
 
-  <!-- Notification Toast -->
-  <div id="sim-toast" class="fixed bottom-6 right-6 z-50 bg-[#181818] text-white border border-white/20 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300">
-    <i id="sim-toast-icon" class="fa-solid fa-circle-check text-green-400"></i>
-    <span id="sim-toast-msg" class="text-xs font-bold">Action executed</span>
-  </div>
 
-  <!-- Interactive JavaScript Engine -->
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
-    let isPlaying = false;
-    let isMuted = false;
-    let progressPercent = 42;
+    // Theme Switcher (Red, Emerald, Cyan, Amber)
+    function setPageTheme(themeName) {
+      document.body.setAttribute('data-theme', themeName);
+      localStorage.setItem('iflix_demo_theme', themeName);
 
-    function switchSimulatorView(mode) {
-      const viewPlayer = document.getElementById('view-player');
-      const viewAdmin = document.getElementById('view-admin');
-      const btnPlayer = document.getElementById('btn-mode-player');
-      const btnAdmin = document.getElementById('btn-mode-admin');
-
-      if (mode === 'player') {
-        viewPlayer.classList.remove('hidden');
-        viewAdmin.classList.add('hidden');
-        btnPlayer.classList.add('bg-[#E50914]', 'text-white');
-        btnPlayer.classList.remove('text-gray-300');
-        btnAdmin.classList.remove('bg-[#E50914]', 'text-white');
-        btnAdmin.classList.add('text-gray-300');
-      } else {
-        viewPlayer.classList.add('hidden');
-        viewAdmin.classList.remove('hidden');
-        btnAdmin.classList.add('bg-[#E50914]', 'text-white');
-        btnAdmin.classList.remove('text-gray-300');
-        btnPlayer.classList.remove('bg-[#E50914]', 'text-white');
-        btnPlayer.classList.add('text-gray-300');
-      }
-    }
-
-    function switchAdminTab(tab) {
-      const tabs = ['dash', 'sources', 'sections', 'tmdb', 'paywall'];
-      tabs.forEach(t => {
-        const pane = document.getElementById('admin-tab-' + t);
-        const btn = document.getElementById('admin-tab-btn-' + t);
-        if (t === tab) {
-          pane.classList.remove('hidden');
-          btn.classList.add('bg-[#E50914]', 'text-white');
-          btn.classList.remove('text-gray-400');
-        } else {
-          pane.classList.add('hidden');
-          btn.classList.remove('bg-[#E50914]', 'text-white');
-          btn.classList.add('text-gray-400');
+      // Visual indicator on active dot
+      ['red', 'emerald', 'cyan', 'amber'].forEach(t => {
+        const dot = document.getElementById('dot-' + t);
+        if (dot) {
+          if (t === themeName) {
+            dot.classList.add('ring-white', 'scale-125');
+          } else {
+            dot.classList.remove('ring-white', 'scale-125');
+          }
         }
       });
     }
 
-    function togglePlayState() {
-      isPlaying = !isPlaying;
-      const playIcon = document.getElementById('player-play-icon');
-      const ctrlIcon = document.getElementById('btn-play-ctrl');
-      const skipBtn = document.getElementById('skip-intro-btn');
+    // Initialize saved theme or default to red
+    const savedTheme = localStorage.getItem('iflix_demo_theme') || 'red';
+    setPageTheme(savedTheme);
 
-      if (isPlaying) {
-        playIcon.className = 'fa-solid fa-pause';
-        ctrlIcon.className = 'fa-solid fa-pause';
-        showToast('Playback Started (HLS 1080p)', 'play');
-        skipBtn.classList.remove('hidden');
+    // View Switcher: Landing / Showcase vs WordPress Admin Studio
+    function switchView(viewName) {
+      const landing = document.getElementById('view-landing');
+      const admin = document.getElementById('view-admin');
+      const btnLanding = document.getElementById('nav-btn-landing');
+      const btnAdmin = document.getElementById('nav-btn-admin');
+
+      if (viewName === 'admin') {
+        landing.classList.add('hidden');
+        admin.classList.remove('hidden');
+
+        btnAdmin.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition bg-accent text-white shadow-md";
+        btnLanding.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        playIcon.className = 'fa-solid fa-play ml-1';
-        ctrlIcon.className = 'fa-solid fa-play';
-        showToast('Playback Paused', 'pause');
+        admin.classList.add('hidden');
+        landing.classList.remove('hidden');
+
+        btnLanding.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition bg-accent text-white shadow-md";
+        btnAdmin.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
 
-    function toggleMuteState() {
-      isMuted = !isMuted;
-      const volIcon = document.getElementById('btn-vol-ctrl');
-      volIcon.className = isMuted ? 'fa-solid fa-volume-xmark text-red-500' : 'fa-solid fa-volume-high';
-      showToast(isMuted ? 'Audio Muted' : 'Audio Unmuted', isMuted ? 'volume-xmark' : 'volume-high');
-    }
+    // Admin Sidebar Tabs Switcher
+    function switchAdminTab(tabName) {
+      const tabs = ['dashboard', 'video-sources', 'section-builder', 'tmdb', 'cinepro', 'paywall', 'notifications', 'license'];
+      
+      tabs.forEach(t => {
+        const panel = document.getElementById('admin-panel-' + t);
+        const btn = document.getElementById('tab-btn-' + t);
+        if (panel) panel.classList.add('hidden');
+        if (btn) {
+          btn.className = "w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:bg-surface-800 transition";
+        }
+      });
 
-    function seekSimTimeline(e) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      progressPercent = Math.max(0, Math.min(100, Math.round((x / rect.width) * 100)));
-      document.getElementById('player-progress').style.width = progressPercent + '%';
-      showToast('Seeked to ' + progressPercent + '%', 'forward');
-    }
-
-    function rewind10() {
-      progressPercent = Math.max(0, progressPercent - 5);
-      document.getElementById('player-progress').style.width = progressPercent + '%';
-      showToast('Rewound -10s', 'rotate-left');
-    }
-
-    function forward10() {
-      progressPercent = Math.min(100, progressPercent + 5);
-      document.getElementById('player-progress').style.width = progressPercent + '%';
-      showToast('Advanced +10s', 'rotate-right');
-    }
-
-    function skipIntroAction(e) {
-      e.stopPropagation();
-      document.getElementById('skip-intro-btn').classList.add('hidden');
-      progressPercent = 55;
-      document.getElementById('player-progress').style.width = progressPercent + '%';
-      showToast('Intro Skipped (Advanced to 01:25)', 'forward-step');
-    }
-
-    function changeServerSim(server) {
-      showToast('Switched to: ' + server.toUpperCase() + ' Mirror', 'server');
-    }
-
-    function changeQualitySim(quality) {
-      showToast('Resolution Stream set to ' + quality.toUpperCase(), 'sliders');
-    }
-
-    function toggleSubtitlesSim() {
-      showToast('Subtitles: English [CC] Active', 'closed-captioning');
-    }
-
-    function toggleFullscreenMock() {
-      showToast('Toggled Fullscreen Mode', 'expand');
-    }
-
-    function launchInteractivePlayer(title, type) {
-      document.getElementById('player-title').textContent = title;
-      document.getElementById('player-sub').textContent = 'Server 1 (Direct CinePro HLS 1080p ' + (type === 'tv' ? 'Episode 1' : 'Feature Film') + ')';
-      isPlaying = false;
-      togglePlayState();
-      window.scrollTo({ top: 380, behavior: 'smooth' });
-    }
-
-    function toggleSimList(btnId) {
-      const btn = document.getElementById(btnId);
-      const isAdded = btn.classList.contains('bg-white');
-      if (isAdded) {
-        btn.classList.remove('bg-white', 'text-black');
-        btn.classList.add('bg-black/40', 'text-white');
-        btn.innerHTML = '<i class="fa-solid fa-plus text-sm"></i>';
-        showToast('Removed from My List', 'trash');
-      } else {
-        btn.classList.add('bg-white', 'text-black');
-        btn.classList.remove('bg-black/40', 'text-white');
-        btn.innerHTML = '<i class="fa-solid fa-check text-sm text-green-600"></i>';
-        showToast('Saved to My List (Synced to Firestore)', 'check');
+      const activePanel = document.getElementById('admin-panel-' + tabName);
+      const activeBtn = document.getElementById('tab-btn-' + tabName);
+      if (activePanel) activePanel.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.className = "w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs font-bold transition bg-accent text-white shadow";
       }
     }
 
-    function toggleSimLike(btnId) {
-      const btn = document.getElementById(btnId);
-      const isLiked = btn.classList.contains('text-green-400');
-      if (isLiked) {
-        btn.classList.remove('text-green-400', 'border-green-400');
-        showToast('Rating Removed', 'thumbs-down');
+    // Phone Device Mockup Interactions
+    function triggerDeviceToast(msg) {
+      const toast = document.getElementById('device-toast');
+      toast.innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 2500);
+    }
+
+    function switchFeaturedDrama(title, epInfo, posterUrl) {
+      document.getElementById('device-hero-title').innerText = title;
+      document.getElementById('device-hero-img').src = posterUrl;
+      triggerDeviceToast('Selected: ' + title);
+    }
+
+    let inList = false;
+    function simulateAddList() {
+      inList = !inList;
+      const icon = document.getElementById('device-list-icon');
+      const text = document.getElementById('device-list-text');
+      if (inList) {
+        icon.className = "fa-solid fa-check text-[10px] text-emerald-400";
+        text.innerText = "Added";
+        triggerDeviceToast("Added to your Watchlist (synced to Firebase)!");
       } else {
-        btn.classList.add('text-green-400', 'border-green-400');
-        showToast('Rated: I Like This!', 'thumbs-up');
+        icon.className = "fa-solid fa-plus text-[10px]";
+        text.innerText = "My List";
+        triggerDeviceToast("Removed from Watchlist");
       }
     }
 
-    function triggerPaywallDemo() {
-      document.getElementById('modal-paywall').classList.remove('hidden');
-    }
-    function closePaywallModal() {
-      document.getElementById('modal-paywall').classList.add('hidden');
+    function simulatePlayerPlay() {
+      triggerDeviceToast("Starting HLS Stream via Server 1 (CinePro 1080p)...");
     }
 
-    function triggerProfilePinDemo() {
-      document.getElementById('modal-pin').classList.remove('hidden');
-    }
-    function closePinModal() {
-      document.getElementById('modal-pin').classList.add('hidden');
+    function setDeviceTab(tab) {
+      triggerDeviceToast("Navigated to: " + tab.toUpperCase());
     }
 
-    function openDetailsModalSim(title, year, match, genre, dur) {
-      document.getElementById('modal-d-title').textContent = title;
-      document.getElementById('modal-d-meta').innerHTML = `
-        <span class="text-green-400 font-bold">${match} Match</span>
-        <span>${year}</span>
-        <span class="border border-white/40 px-1 py-0.2 rounded text-[10px]">18+</span>
-        <span>${dur}</span>
-        <span>${genre}</span>
-      `;
-      document.getElementById('modal-details').classList.remove('hidden');
-    }
-    function closeDetailsModal() {
-      document.getElementById('modal-details').classList.add('hidden');
-    }
-
-    function flushCacheSim() {
-      const countEl = document.getElementById('cache-count');
-      countEl.textContent = '0';
-      showToast('Purged 418 TMDB Transients (Cache Cleared)', 'broom');
-      setTimeout(() => { countEl.textContent = '418'; }, 3000);
+    function filterCategory(cat) {
+      ['trending', 'scifi', 'action', 'vip', 'drama'].forEach(c => {
+        const b = document.getElementById('cat-' + c);
+        if (b) {
+          b.className = "px-2.5 py-0.5 rounded-full bg-surface-800 text-gray-300 hover:text-white font-medium whitespace-nowrap";
+        }
+      });
+      const active = document.getElementById('cat-' + cat.toLowerCase().replace(' ', '').replace('4k', ''));
+      if (active) {
+        active.className = "px-2.5 py-0.5 rounded-full bg-accent text-white font-bold whitespace-nowrap shadow-sm";
+      }
+      triggerDeviceToast("Filter: " + cat);
     }
 
-    function seedDefaultsSim() {
-      showToast('Restored Default Video Source Mirrors', 'seedling');
+    function showCdnDetails(type) {
+      if (type === 'r2') {
+        alert("Cloudflare R2 Storage: $0.015/GB storage with ZERO ($0) bandwidth egress fees. Perfect for reducing video delivery costs.");
+      } else if (type === 'cinepro') {
+        alert("CinePro HLS Engine: Hardware DRM protection, automated multi-bitrate ladder (4K, 1080p, 720p, 480p), and instant failover.");
+      } else {
+        alert("Akamai / Cloudinary: Global high-throughput CDN with edge caching in 130+ countries.");
+      }
     }
 
-    function showToast(msg, icon) {
-      const toast = document.getElementById('sim-toast');
-      const toastMsg = document.getElementById('sim-toast-msg');
-      const toastIcon = document.getElementById('sim-toast-icon');
+    function triggerAdminAlert(msg) {
+      alert("WordPress Admin Studio: " + msg);
+    }
 
-      toastMsg.textContent = msg;
-      toastIcon.className = 'fa-solid fa-' + (icon || 'circle-check') + ' text-[#E50914]';
-
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      toast.classList.add('translate-y-0', 'opacity-100');
-
-      clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => {
-        toast.classList.remove('translate-y-0', 'opacity-100');
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 2400);
+    function simulateTmdbFetch() {
+      const val = document.getElementById('tmdb-input').value;
+      triggerAdminAlert("Connected to TMDB API! Fetched metadata for ID " + val + " (backdrop, poster, synopsis, cast).");
     }
   </script>
+
 </body>
 </html>
