@@ -104,10 +104,10 @@
     .mobile-frame {
       position: relative;
       width: 320px;
-      height: 640px;
+      height: 635px;
       background: #000;
-      border-radius: 42px;
-      box-shadow: 0 25px 60px -15px rgba(0,0,0,0.9), 0 0 0 6px #242938, 0 0 0 8px #131722;
+      border-radius: 38px;
+      box-shadow: 0 25px 60px -15px rgba(0,0,0,0.95), 0 0 0 5px #242938, 0 0 0 7px #131722;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -115,20 +115,21 @@
     @media (min-width: 640px) {
       .mobile-frame {
         width: 340px;
-        height: 680px;
+        height: 675px;
       }
     }
 
     .phone-island {
       position: absolute;
-      top: 10px;
+      top: 6px;
       left: 50%;
       transform: translateX(-50%);
-      width: 90px;
-      height: 20px;
-      background: #000;
-      border-radius: 20px;
+      width: 56px;
+      height: 4px;
+      background: #282e3f;
+      border-radius: 4px;
       z-index: 40;
+      pointer-events: none;
     }
 
     .hide-scrollbar::-webkit-scrollbar {
@@ -260,208 +261,86 @@
       <div class="lg:col-span-5 flex flex-col items-center">
         
         <!-- Phone Device Shell -->
-        <div class="mobile-frame">
-          <!-- Dynamic Island -->
-          <div class="phone-island"></div>
+        <div class="relative group">
+          <!-- Ambient Glow behind phone -->
+          <div class="absolute -inset-2 bg-gradient-to-tr from-accent/30 via-red-500/10 to-purple-500/20 rounded-[50px] blur-2xl opacity-60 group-hover:opacity-100 transition duration-500"></div>
 
-          <!-- Status Bar -->
-          <div class="pt-2 px-6 flex justify-between items-center text-[10px] text-white/70 font-semibold z-30">
-            <span>9:41</span>
-            <div class="flex items-center space-x-1.5 text-[9px]">
-              <i class="fa-solid fa-signal"></i>
-              <i class="fa-solid fa-wifi"></i>
-              <i class="fa-solid fa-battery-full text-[11px]"></i>
-            </div>
-          </div>
+          <div class="mobile-frame">
+            <!-- Physical Speaker Slit at top -->
+            <div class="phone-island"></div>
 
-          <!-- Mobile App Header -->
-          <div class="px-4 py-2 flex items-center justify-between border-b border-white/10 bg-[#0c0d12]/80 backdrop-blur z-20">
-            <div class="flex items-center space-x-2">
-              <span class="text-sm font-black text-accent uppercase tracking-wider">iFLIX</span>
-              <span class="text-[9px] bg-accent-light text-accent px-1.5 py-0.5 rounded font-bold">STREAM</span>
-            </div>
-            <div class="flex items-center space-x-3 text-xs text-white/80">
-              <i class="fa-solid fa-magnifying-glass cursor-pointer hover:text-white" onclick="triggerDeviceToast('Search TMDB / Titles')"></i>
-              <i class="fa-regular fa-bookmark cursor-pointer hover:text-white" onclick="triggerDeviceToast('Saved Watchlist Opened')"></i>
-              <i class="fa-solid fa-globe cursor-pointer hover:text-white" onclick="triggerDeviceToast('Language: English (US)')"></i>
-            </div>
-          </div>
+            <!-- Real Mobile App Screenshot with Interactive Hotspots -->
+            <div class="relative w-full h-full select-none overflow-hidden bg-black">
+              <img src="assets/app-mockup.png" alt="iFlix Mobile App Interface" class="w-full h-full object-cover">
 
-          <!-- Scrollable App Screen Content -->
-          <div class="flex-1 overflow-y-auto hide-scrollbar px-3 py-2 space-y-3 bg-[#0a0a0f]">
-            
-            <!-- Category Filter Pills -->
-            <div class="flex items-center space-x-1.5 overflow-x-auto hide-scrollbar py-1 text-[11px]">
-              <button onclick="filterCategory('Trending')" id="cat-trending" class="px-2.5 py-0.5 rounded-full bg-accent text-white font-bold whitespace-nowrap shadow-sm">Trending</button>
-              <button onclick="filterCategory('Sci-Fi')" id="cat-scifi" class="px-2.5 py-0.5 rounded-full bg-surface-800 text-gray-300 hover:text-white font-medium whitespace-nowrap">Sci-Fi</button>
-              <button onclick="filterCategory('Action')" id="cat-action" class="px-2.5 py-0.5 rounded-full bg-surface-800 text-gray-300 hover:text-white font-medium whitespace-nowrap">Action</button>
-              <button onclick="filterCategory('VIP 4K')" id="cat-vip" class="px-2.5 py-0.5 rounded-full bg-surface-800 text-amber-400 hover:text-white font-medium whitespace-nowrap"><i class="fa-solid fa-crown text-[9px] mr-1"></i>VIP 4K</button>
-              <button onclick="filterCategory('Drama')" id="cat-drama" class="px-2.5 py-0.5 rounded-full bg-surface-800 text-gray-300 hover:text-white font-medium whitespace-nowrap">Drama</button>
-            </div>
+              <!-- Hotspot: Play Button -->
+              <div onclick="triggerDeviceToast('▶ Starting 4K Stream: Resident Evil (CinePro HLS Direct)...')" 
+                   class="absolute top-[39.5%] left-[11%] w-[25%] h-[5%] rounded-lg cursor-pointer hover:bg-white/10 active:bg-white/20 transition" 
+                   title="Click to Play"></div>
 
-            <!-- Hero Featured Drama Card -->
-            <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-lg group">
-              <img id="device-hero-img" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=600&auto=format&fit=crop&q=80" 
-                   alt="Featured Drama" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-              
-              <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-black/40 to-transparent"></div>
+              <!-- Hotspot: Details Button -->
+              <div onclick="triggerDeviceToast('ℹ️ Resident Evil (2026): 4K ULTRA HD • 1h 40m • TV-MA • Horror / Sci-Fi')" 
+                   class="absolute top-[39.5%] left-[38%] w-[28%] h-[5%] rounded-lg cursor-pointer hover:bg-white/10 active:bg-white/20 transition" 
+                   title="Click for Details"></div>
 
-              <!-- Badges -->
-              <div class="absolute top-2 left-2 flex items-center space-x-1.5">
-                <span class="bg-accent text-white text-[9px] font-black px-2 py-0.5 rounded shadow">TOP 1</span>
-                <span class="bg-black/60 backdrop-blur text-white text-[9px] font-bold px-1.5 py-0.5 rounded border border-white/20">4K HDR</span>
-              </div>
+              <!-- Hotspot: + Watchlist Button -->
+              <div onclick="triggerDeviceToast('✓ Added Resident Evil to Watchlist (Firebase Sync)')" 
+                   class="absolute top-[39.5%] left-[68%] w-[12%] h-[5%] rounded-lg cursor-pointer hover:bg-white/10 active:bg-white/20 transition" 
+                   title="Add to My List"></div>
 
-              <!-- Title & Meta -->
-              <div class="absolute bottom-2 left-3 right-3">
-                <h3 id="device-hero-title" class="text-sm font-bold text-white drop-shadow leading-tight mb-1">
-                  Guardian of the Forbidden Realm
-                </h3>
-                <div class="flex items-center space-x-2 text-[10px] text-gray-300 mb-2">
-                  <span class="text-amber-400 font-bold"><i class="fa-solid fa-star text-[9px] mr-0.5"></i>4.9</span>
-                  <span>•</span>
-                  <span>16 Episodes</span>
-                  <span>•</span>
-                  <span>1.2M Views</span>
-                </div>
+              <!-- Hotspot: Search Bar -->
+              <div onclick="triggerDeviceToast('🔍 TMDB Instant Search: Titles, people, genres...')" 
+                   class="absolute top-[2%] right-[14%] w-[38%] h-[4.5%] rounded-lg cursor-pointer hover:bg-white/10" 
+                   title="Search"></div>
 
-                <!-- Action Buttons -->
-                <div class="flex items-center space-x-2">
-                  <button onclick="simulatePlayerPlay()" class="flex-1 py-1 px-3 rounded-lg bg-accent text-white text-xs font-bold flex items-center justify-center space-x-1 shadow hover:opacity-90">
-                    <i class="fa-solid fa-play text-[10px]"></i>
-                    <span>Play</span>
-                  </button>
-                  <button onclick="simulateAddList()" class="py-1 px-3 rounded-lg bg-white/20 backdrop-blur hover:bg-white/30 text-white text-xs font-semibold flex items-center space-x-1">
-                    <i class="fa-solid fa-plus text-[10px]" id="device-list-icon"></i>
-                    <span id="device-list-text">My List</span>
-                  </button>
-                </div>
-              </div>
-            </div>
+              <!-- Hotspot: Notifications Bell -->
+              <div onclick="triggerDeviceToast('🔔 4 Unread Notifications: New season drops available!')" 
+                   class="absolute top-[2%] right-[2%] w-[10%] h-[4.5%] rounded-lg cursor-pointer hover:bg-white/10" 
+                   title="Notifications"></div>
 
-            <!-- Watch History Section -->
-            <div>
-              <div class="flex items-center justify-between mb-1.5 px-0.5">
-                <div class="flex items-center space-x-1.5 text-xs font-bold text-white">
-                  <i class="fa-solid fa-clock-rotate-left text-accent text-[11px]"></i>
-                  <span>Watch History</span>
-                </div>
-                <span class="text-[10px] text-accent font-semibold cursor-pointer" onclick="triggerDeviceToast('All History Loaded')">View all &gt;</span>
-              </div>
+              <!-- Hotspot: Trending Now Horror (Resident Evil) -->
+              <div onclick="triggerDeviceToast('Selected: Resident Evil (Horror • 2026 • 1h 40m • ★ 7.4)')" 
+                   class="absolute top-[53%] left-[10%] w-[38%] h-[27%] rounded-xl cursor-pointer hover:ring-2 hover:ring-accent transition" 
+                   title="Resident Evil"></div>
 
-              <div class="grid grid-cols-3 gap-2">
-                <!-- Item 1 -->
-                <div class="cursor-pointer group" onclick="switchFeaturedDrama('Fight Club: Underground', 'Ep. 2 • 17%', 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=400&auto=format&fit=crop&q=80')">
-                  <div class="relative rounded-lg overflow-hidden border border-white/10 aspect-[3/4] bg-surface-800">
-                    <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                    <span class="absolute top-1 left-1 bg-red-600/90 text-white text-[8px] font-bold px-1 rounded">RESUME</span>
-                    <div class="absolute bottom-0 inset-x-0 h-1 bg-gray-700">
-                      <div class="h-full bg-accent" style="width: 17%"></div>
-                    </div>
-                  </div>
-                  <div class="mt-1 text-[9px] font-medium text-gray-300 truncate">Fight Club</div>
-                  <div class="text-[8px] text-gray-500">Ep. 2 • 17%</div>
-                </div>
+              <!-- Hotspot: Trending Now Drama (Monster) -->
+              <div onclick="triggerDeviceToast('Selected: Monster: The Lizzie Borden Story (Drama • 13 Episodes • ★ 6.9)')" 
+                   class="absolute top-[53%] left-[51%] w-[38%] h-[27%] rounded-xl cursor-pointer hover:ring-2 hover:ring-accent transition" 
+                   title="Monster Drama"></div>
 
-                <!-- Item 2 -->
-                <div class="cursor-pointer group" onclick="switchFeaturedDrama('Inception: Infinite Dream', 'Ep. 6 • 83%', 'https://images.unsplash.com/photo-1509281373149-e957c6296406?w=400&auto=format&fit=crop&q=80')">
-                  <div class="relative rounded-lg overflow-hidden border border-white/10 aspect-[3/4] bg-surface-800">
-                    <img src="https://images.unsplash.com/photo-1509281373149-e957c6296406?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                    <span class="absolute top-1 left-1 bg-red-600/90 text-white text-[8px] font-bold px-1 rounded">RESUME</span>
-                    <div class="absolute bottom-0 inset-x-0 h-1 bg-gray-700">
-                      <div class="h-full bg-accent" style="width: 83%"></div>
-                    </div>
-                  </div>
-                  <div class="mt-1 text-[9px] font-medium text-gray-300 truncate">Inception Dream</div>
-                  <div class="text-[8px] text-gray-500">Ep. 6 • 83%</div>
-                </div>
+              <!-- Hotspot: Bottom Nav Home -->
+              <div onclick="triggerDeviceToast('🏠 Home Feed: Netflix 1:1 Dark UI loaded')" 
+                   class="absolute bottom-[0.5%] left-[4%] w-[20%] h-[6%] cursor-pointer hover:bg-white/10 rounded-lg" 
+                   title="Home"></div>
 
-                <!-- Item 3 (VIP Locked) -->
-                <div class="cursor-pointer group" onclick="switchFeaturedDrama('Interstellar Odyssey', 'VIP Premiere', 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&auto=format&fit=crop&q=80')">
-                  <div class="relative rounded-lg overflow-hidden border border-white/10 aspect-[3/4] bg-surface-800">
-                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                    <span class="absolute top-1 left-1 bg-amber-500 text-black text-[8px] font-black px-1 rounded"><i class="fa-solid fa-crown text-[7px]"></i> VIP</span>
-                    <div class="absolute bottom-0 inset-x-0 h-1 bg-gray-700">
-                      <div class="h-full bg-amber-400" style="width: 35%"></div>
-                    </div>
-                  </div>
-                  <div class="mt-1 text-[9px] font-medium text-gray-300 truncate">Interstellar</div>
-                  <div class="text-[8px] text-amber-400">VIP Premiere</div>
-                </div>
-              </div>
-            </div>
+              <!-- Hotspot: Bottom Nav TV -->
+              <div onclick="triggerDeviceToast('📺 TV Shows & Drama Series Catalog')" 
+                   class="absolute bottom-[0.5%] left-[27%] w-[20%] h-[6%] cursor-pointer hover:bg-white/10 rounded-lg" 
+                   title="TV Shows"></div>
 
-            <!-- Most Popular Row -->
-            <div>
-              <div class="flex items-center justify-between mb-1.5 px-0.5">
-                <div class="flex items-center space-x-1.5 text-xs font-bold text-white">
-                  <span>Most Popular</span>
-                  <span>🔥</span>
-                </div>
-                <span class="text-[10px] text-accent font-semibold cursor-pointer" onclick="triggerDeviceToast('Full Catalog Filter')">View all &gt;</span>
-              </div>
+              <!-- Hotspot: Bottom Nav Movie -->
+              <div onclick="triggerDeviceToast('🎬 Movies Catalog: 4K HDR & Multi-Audio')" 
+                   class="absolute bottom-[0.5%] left-[52%] w-[20%] h-[6%] cursor-pointer hover:bg-white/10 rounded-lg" 
+                   title="Movies"></div>
 
-              <div class="flex space-x-2 overflow-x-auto hide-scrollbar pb-1">
-                <div class="w-20 flex-shrink-0 cursor-pointer" onclick="switchFeaturedDrama('Pulp Fiction Crime', 'HD Complete', 'https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=400&auto=format&fit=crop&q=80')">
-                  <div class="rounded-lg overflow-hidden aspect-[2/3] border border-white/10 bg-surface-800">
-                    <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                  </div>
-                  <div class="text-[9px] text-gray-300 font-medium truncate mt-1">Pulp Fiction</div>
-                </div>
+              <!-- Hotspot: Bottom Nav Account -->
+              <div onclick="triggerDeviceToast('👤 User Profiles & Kids Mode PIN (1234)')" 
+                   class="absolute bottom-[0.5%] left-[76%] w-[20%] h-[6%] cursor-pointer hover:bg-white/10 rounded-lg" 
+                   title="Account"></div>
 
-                <div class="w-20 flex-shrink-0 cursor-pointer" onclick="switchFeaturedDrama('Gladiator Coliseum', '4K Remaster', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=400&auto=format&fit=crop&q=80')">
-                  <div class="rounded-lg overflow-hidden aspect-[2/3] border border-white/10 bg-surface-800">
-                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                  </div>
-                  <div class="text-[9px] text-gray-300 font-medium truncate mt-1">Gladiator</div>
-                </div>
-
-                <div class="w-20 flex-shrink-0 cursor-pointer" onclick="switchFeaturedDrama('Cyber Shadow 2099', 'Dolby Atmos', 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80')">
-                  <div class="rounded-lg overflow-hidden aspect-[2/3] border border-white/10 bg-surface-800">
-                    <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                  </div>
-                  <div class="text-[9px] text-gray-300 font-medium truncate mt-1">Cyber Shadow</div>
-                </div>
+              <!-- Live Toast Message Popup inside the Phone -->
+              <div id="device-toast" class="hidden absolute bottom-16 left-3 right-3 bg-[#11131b]/95 backdrop-blur-md border border-accent text-white text-[10.5px] font-bold py-2 px-3 rounded-xl shadow-2xl text-center z-50 transition-all leading-snug">
+                Toast alert message
               </div>
             </div>
 
           </div>
-
-          <!-- Phone Toast Message Banner -->
-          <div id="device-toast" class="hidden absolute bottom-14 left-4 right-4 bg-surface-800/95 backdrop-blur border border-accent text-white text-[10px] font-semibold py-1.5 px-3 rounded-lg shadow-xl text-center z-40 transition-all">
-            Toast alert message
-          </div>
-
-          <!-- Phone Bottom Navigation Bar -->
-          <div class="px-3 py-2 bg-[#0c0d12] border-t border-white/10 flex justify-between items-center text-gray-400 z-30">
-            <button onclick="setDeviceTab('home')" class="flex flex-col items-center space-y-0.5 text-accent">
-              <i class="fa-solid fa-house text-xs"></i>
-              <span class="text-[8px] font-bold">Home</span>
-            </button>
-            <button onclick="setDeviceTab('discover')" class="flex flex-col items-center space-y-0.5 hover:text-white">
-              <i class="fa-solid fa-compass text-xs"></i>
-              <span class="text-[8px]">Discover</span>
-            </button>
-            <button onclick="setDeviceTab('vip')" class="flex flex-col items-center space-y-0.5 text-amber-400 hover:text-amber-300">
-              <i class="fa-solid fa-crown text-xs"></i>
-              <span class="text-[8px] font-bold">VIP Pass</span>
-            </button>
-            <button onclick="setDeviceTab('ranking')" class="flex flex-col items-center space-y-0.5 hover:text-white">
-              <i class="fa-solid fa-trophy text-xs"></i>
-              <span class="text-[8px]">Ranking</span>
-            </button>
-            <button onclick="setDeviceTab('account')" class="flex flex-col items-center space-y-0.5 hover:text-white">
-              <i class="fa-solid fa-user text-xs"></i>
-              <span class="text-[8px]">Account</span>
-            </button>
-          </div>
-
         </div>
 
         <!-- Hint Under Phone Device -->
         <p class="text-[11px] text-gray-400 mt-4 flex items-center space-x-1.5">
-          <i class="fa-solid fa-circle-info text-accent text-xs"></i>
-          <span>Interactive Demo: Click titles, switch tabs & test VIP unlocks!</span>
+          <i class="fa-solid fa-circle-check text-accent text-xs"></i>
+          <span>Live Mobile Interface • Click buttons & posters on the phone to test!</span>
         </p>
       </div>
 
