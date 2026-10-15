@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5c518"/>
+      <stop offset="100%" stop-color="#d49e00"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="8" fill="url(#yellowGrad)"/>
+  <!-- Eyes -->
+  <circle cx="36" cy="46" r="6" fill="#ffffff"/>
+  <circle cx="84" cy="46" r="6" fill="#ffffff"/>
+  <!-- Smile -->
+  <path d="M 38 68 Q 60 92 82 68" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"/>
+</svg>

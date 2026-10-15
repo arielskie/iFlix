@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8a2be2"/>
+      <stop offset="100%" stop-color="#4b0082"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="8" fill="url(#purpleGrad)"/>
+  <!-- Wink Eye -->
+  <circle cx="36" cy="46" r="6" fill="#ffffff"/>
+  <path d="M 74 46 Q 84 38 94 46" stroke="#ffffff" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Smirk -->
+  <path d="M 40 74 Q 65 88 84 64" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"/>
+</svg>

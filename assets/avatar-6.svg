@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e50914"/>
+      <stop offset="100%" stop-color="#990000"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="8" fill="url(#redGrad)"/>
+  <!-- Chill Eyes -->
+  <path d="M 30 46 Q 40 40 50 46" stroke="#ffffff" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M 70 46 Q 80 40 90 46" stroke="#ffffff" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Big Smile -->
+  <path d="M 36 68 Q 60 94 84 68" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"/>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <clipPath id="kidsClip">
+      <rect width="120" height="120" rx="8"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#kidsClip)">
+    <rect x="0" y="0" width="24" height="120" fill="#2eb85c"/>
+    <rect x="24" y="0" width="24" height="120" fill="#f9b115"/>
+    <rect x="48" y="0" width="24" height="120" fill="#e55353"/>
+    <rect x="72" y="0" width="24" height="120" fill="#e83e8c"/>
+    <rect x="96" y="0" width="24" height="120" fill="#6f42c1"/>
+  </g>
+  <!-- Kids Badge -->
+  <rect x="14" y="40" width="92" height="40" rx="6" fill="#ffffff"/>
+  <text x="60" y="68" font-family="'Outfit', sans-serif" font-weight="900" font-size="26" fill="#e50914" text-anchor="middle">kids</text>
+</svg>

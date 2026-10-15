@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" fill="none">
+  <!-- Square App Icon with Transparent Outer Background -->
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#0D1117" stroke="#E50914" stroke-width="2"/>
+  
+  <!-- Red Circular Ring -->
+  <circle cx="32" cy="32" r="18" stroke="#E50914" stroke-width="3.5" fill="none"/>
+  
+  <!-- White Play Button -->
+  <path d="M28 23L41 32L28 41V23Z" fill="#FFFFFF"/>
+
+  <!-- Brand Typography (i in Red, FLIX in White) -->
+  <text x="76" y="43" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="34" font-weight="900" letter-spacing="-0.5">
+    <tspan fill="#E50914">i</tspan><tspan fill="#FFFFFF">FLIX</tspan>
+  </text>
+</svg>
